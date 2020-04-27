@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
 
 	[SerializeField] private float speed = 1;
 
+	[SerializeField] private PlayerLegActionController legActionController;
+
 	private Rigidbody rbody;
 
 	[SerializeField] private Text countText;
@@ -36,6 +38,13 @@ public class PlayerController : MonoBehaviour {
 		Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
 
 		rbody.AddForce(movement * speed);
+
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			if (legActionController.FrontKick()) {
+				rbody.velocity *= 0.5f;
+				rbody.angularVelocity *= 0.5f;
+			}
+		}
 	}
 
 	private void OnTriggerEnter(Collider other) {
