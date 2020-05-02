@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 ///
@@ -25,13 +26,23 @@ public class PlayerInputHandler : MonoBehaviour {
 	#endregion ^ Variables
 
 
+	#region Events
+
+
+	[SerializeField] private UnityEvent KickEvent = new UnityEvent();
+
+	[SerializeField] private UnityEvent DashEvent = new UnityEvent();
+
+	#endregion ^ Events
+
+
 	#region Unity Methods
 
 	private void FixedUpdate() {
 		horizontal = Input.GetAxis("Horizontal");
 		vertical = Input.GetAxis("Vertical");
 
-
+		if (Input.GetKeyDown(KeyCode.Space)) KickEvent?.Invoke();
 	}
 
 	#endregion ^ Unity Methods

@@ -3,10 +3,9 @@
 /// <summary>
 ///
 /// </summary>
-public class FollowPlayer : MonoBehaviour {
+public class FollowPlayerDirection : MonoBehaviour {
 
 	#region Variables
-
 
 	[SerializeField] private Transform target;
 
@@ -25,10 +24,14 @@ public class FollowPlayer : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
-		myTransform.position = target.position;
+
+		Vector3 dir = target.position - prevPos;
+		if (dir.sqrMagnitude > 0.000001f) {
+			myTransform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+			prevPos = target.position;
+		}
 	}
 
 	#endregion ^ Unity Methods
-
 
 }

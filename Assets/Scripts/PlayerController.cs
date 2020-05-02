@@ -36,12 +36,6 @@ public class PlayerController : MortalController {
 
 		RBody.AddForce(movement * speed);
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			if (legActionController.FrontKick()) {
-				RBody.velocity *= 0.5f;
-				RBody.angularVelocity *= 0.5f;
-			}
-		}
 	}
 
 	private void OnTriggerEnter(Collider other) {
@@ -63,6 +57,17 @@ public class PlayerController : MortalController {
 	}
 
 	#endregion ^ Implementation Methods
+
+	#region Public Events
+
+	public void OnKickEvent() {
+		if (legActionController.FrontKick()) {
+			RBody.velocity *= 0.5f;
+			RBody.angularVelocity *= 0.5f;
+		}
+	}
+
+	#endregion ^ Public Events
 
 	#region Helper Methods
 
