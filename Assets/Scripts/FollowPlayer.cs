@@ -33,8 +33,8 @@ public class FollowPlayer : MonoBehaviour {
 		myTransform.position = target.position;
 
 		Vector3 dir = target.position - prevPos;
-		if (!dir.Equals(Vector3.zero)) {
-			myTransform.rotation = Quaternion.LookRotation(dir);
+		if (dir.sqrMagnitude > 0.000001f) {
+			myTransform.rotation = Quaternion.LookRotation(dir, Vector3.up);
 			prevPos = target.position;
 		}
 	}
