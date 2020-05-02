@@ -20,7 +20,6 @@ public class PlayerController : MortalController {
 	[SerializeField] private Text countText;
 	[SerializeField] private GameObject winText;
 
-	private const int requiredCount = 12;
 	private int count = 0;
 
 	[SerializeField] private Vector3 speedVector = new Vector3();
@@ -29,6 +28,13 @@ public class PlayerController : MortalController {
 	private float dashCooldown = 3f;
 
 	#endregion ^ Variables
+
+
+	#region Events
+
+	[SerializeField] private FloatEvent DashActivatedEvent = new FloatEvent();
+
+	#endregion ^ Events
 
 
 	#region Unity Methods
@@ -56,8 +62,11 @@ public class PlayerController : MortalController {
 			other.gameObject.SetActive(false);
 			count++;
 			UpdateCountDisplay();
-			CheckWinState();
 		}
+	}
+
+	private void OnDestroy() {
+		DashActivatedEvent?.RemoveAllListeners();
 	}
 
 	#endregion ^ Unity Methods
@@ -95,6 +104,8 @@ public class PlayerController : MortalController {
 
 		dashTime = Time.time + dashCooldown;
 
+		DashActivatedEvent?.Invoke(dashCooldown);
+
 	}
 
 	#endregion ^ Public Events
@@ -104,13 +115,6 @@ public class PlayerController : MortalController {
 	private void UpdateCountDisplay() {
 		countText.text = string.Format("Count: {0}", count);
 	}
-
-	private void CheckWinState() {
-		if (count < requiredCount) return;
-		winText.SetActive(true);
-	}
-
-
 
 	#endregion ^ Helper Methods
 }
