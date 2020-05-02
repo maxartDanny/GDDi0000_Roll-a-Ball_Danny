@@ -17,15 +17,11 @@ public class PlayerController : MortalController {
 
 	[SerializeField] private Transform mouseDirection;
 
-	[SerializeField] private Text countText;
-	[SerializeField] private GameObject winText;
-
-	private int count = 0;
-
 	[SerializeField] private Vector3 speedVector = new Vector3();
 
+	private float dashPower = 25f;
 	private float dashTime = 0;
-	private float dashCooldown = 3f;
+	private float dashCooldown = 0.5f;
 
 	#endregion ^ Variables
 
@@ -40,8 +36,6 @@ public class PlayerController : MortalController {
 	#region Unity Methods
 
 	private void Start() {
-		UpdateCountDisplay();
-
 		RBody.maxAngularVelocity = float.MaxValue;
 	}
 
@@ -51,22 +45,35 @@ public class PlayerController : MortalController {
 
 		speedVector += movement;
 
+		//Debug.LogFormat("Speed Vector: {0}", speedVector.magnitude);
+
 		RBody.velocity = speedVector;
 
 		speedVector *= 0.9f;
 
 	}
 
-	private void OnTriggerEnter(Collider other) {
-		if (other.CompareTag("PickUp")) {
-			other.gameObject.SetActive(false);
-			count++;
-			UpdateCountDisplay();
-		}
-	}
-
 	private void OnDestroy() {
 		DashActivatedEvent?.RemoveAllListeners();
+	}
+
+	private void OnCollisionEnter(Collision collision) {
+		if (collision.collider.CompareTag("Enemy")) {
+
+			Debug.LogFormat("Hit enemy {0}", speedVector.magnitude);
+
+			if (speedVector.magnitude >= 9f) {
+
+				IDamageable damageable = collision.transform.GetComponent<IDamageable>();
+
+				if (damageable != null) {
+					damageable.DamageRecieve(GetDamageID(), transform.position, RBody.velocity);
+				}
+
+				speedVector *= 0.1f;
+			}
+
+		}
 	}
 
 	#endregion ^ Unity Methods
@@ -95,7 +102,7 @@ public class PlayerController : MortalController {
 
 		//RBody.AddTorque(transform.up * 10, ForceMode.Force);
 
-		speedVector += mouseDirection.forward * 50;
+		speedVector += mouseDirection.forward * dashPower;
 		speedVector.y = 0;
 
 		//RBody.AddForce(mouseDirection.forward * 1000);
@@ -111,10 +118,6 @@ public class PlayerController : MortalController {
 	#endregion ^ Public Events
 
 	#region Helper Methods
-
-	private void UpdateCountDisplay() {
-		countText.text = string.Format("Count: {0}", count);
-	}
 
 	#endregion ^ Helper Methods
 }

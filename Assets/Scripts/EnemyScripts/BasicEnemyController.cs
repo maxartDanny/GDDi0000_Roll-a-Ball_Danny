@@ -9,6 +9,8 @@ public class BasicEnemyController : EnemyController {
 
 	[SerializeField] private float damage = 10;
 
+	private float maxImpact = 2;
+
 	#endregion ^ Variables
 
 
@@ -23,9 +25,9 @@ public class BasicEnemyController : EnemyController {
 
 		Vector3 myPos = transform.position;
 		sourcePos.y = myPos.y;
-		float impact = velocity.magnitude;
+		float impact = Mathf.Clamp(velocity.magnitude, 0, maxImpact);
 
-		RBody?.AddForce(((Vector3.up * impact * 0.5f) + velocity).normalized * (damage + impact), ForceMode.Impulse);
+		RBody?.AddForce(((Vector3.up * 0.5f) + velocity.normalized).normalized * (damage + impact), ForceMode.Impulse);
 
 	}
 
