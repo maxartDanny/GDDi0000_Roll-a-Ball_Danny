@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 ///
 /// </summary>
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MortalController {
 
 	#region Variables
 
@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
 
 	[SerializeField] private PlayerLegActionController legActionController;
 
-	private Rigidbody rbody;
+	[SerializeField] private PlayerInputHandler inputs;
 
 	[SerializeField] private Text countText;
 	[SerializeField] private GameObject winText;
@@ -27,22 +27,19 @@ public class PlayerController : MonoBehaviour {
 	#region Unity Methods
 
 	private void Start() {
-		rbody = GetComponent<Rigidbody>();
 		UpdateCountDisplay();
 	}
 
 	private void FixedUpdate() {
-		float moveHorizontal = Input.GetAxis("Horizontal");
-		float moveVertical = Input.GetAxis("Vertical");
 
-		Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
+		Vector3 movement = new Vector3(inputs.Horizontal, 0, inputs.Vertical);
 
-		rbody.AddForce(movement * speed);
+		RBody.AddForce(movement * speed);
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			if (legActionController.FrontKick()) {
-				rbody.velocity *= 0.5f;
-				rbody.angularVelocity *= 0.5f;
+				RBody.velocity *= 0.5f;
+				RBody.angularVelocity *= 0.5f;
 			}
 		}
 	}
@@ -58,6 +55,15 @@ public class PlayerController : MonoBehaviour {
 
 	#endregion ^ Unity Methods
 
+
+	#region Implementation Methods
+
+	public override void DamageRecieve(IDDamage damageType, Vector3 sourcePos, Vector3 velocity) {
+		throw new System.NotImplementedException();
+	}
+
+	#endregion ^ Implementation Methods
+
 	#region Helper Methods
 
 	private void UpdateCountDisplay() {
@@ -68,6 +74,8 @@ public class PlayerController : MonoBehaviour {
 		if (count < requiredCount) return;
 		winText.SetActive(true);
 	}
+
+
 
 	#endregion ^ Helper Methods
 }
