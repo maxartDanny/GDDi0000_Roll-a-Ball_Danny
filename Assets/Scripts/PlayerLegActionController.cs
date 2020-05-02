@@ -11,13 +11,13 @@ public class PlayerLegActionController : MonoBehaviour {
 
 	[SerializeField] private GameObject kickAnimator;
 
+
 	private bool animating = false;
 
 	#endregion ^ Variables
 
 
 	#region Unity Methods
-
 
 
 	#endregion ^ Unity Methods
