@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 /// <summary>
@@ -20,6 +21,9 @@ public class BasicEnemyController : EnemyController {
 	private Stack<Action> actionStack = new Stack<Action>();
 	[SerializeField] private bool actionStackBusy = false;
 
+	[SerializeField] private Rotate rotateScript;
+	[SerializeField] private Color pickUpColour;
+
 	#endregion ^ Variables
 
 
@@ -33,6 +37,13 @@ public class BasicEnemyController : EnemyController {
 		actionStackBusy = true;
 	}
 
+	private void OnCollisionEnter(Collision collision) {
+		if (IsPickup && collision.gameObject.CompareTag("Player")) {
+			Destroy(gameObject);
+			ScoreManager.Instance.AddScore(1);
+		}
+	}
+
 	#endregion ^ Unity Methods
 
 
@@ -40,7 +51,7 @@ public class BasicEnemyController : EnemyController {
 
 	public override void DamageRecieve(Transform other, IDDamage damageType, Vector3 sourcePos, Vector3 velocity) {
 
-		//if (Health <= 0) return;
+		if (IsDead) return;
 
 		Vector3 myPos = transform.position;
 		sourcePos.y = myPos.y;
@@ -61,15 +72,12 @@ public class BasicEnemyController : EnemyController {
 	#region Helper Methods
 
 	private void CheckHealth() {
-
-		if (Health <= 0) {
+		if (IsDead) {
 			actionStack.Push(Death);
 		}
-
 	}
 
 	private void Attack(Transform target) {
-
 		StartCoroutine(AttackSequence(target, 0.8f));
 	}
 
@@ -94,6 +102,11 @@ public class BasicEnemyController : EnemyController {
 
 	private IEnumerator DeathSequence() {
 		yield return null;
+
+		rotateScript.GetComponent<Renderer>().material.SetColor("_BaseColor", pickUpColour);
+		rotateScript.IsRotating = true;
+
+		IsPickup = true;
 
 		ActionComplete();
 	}

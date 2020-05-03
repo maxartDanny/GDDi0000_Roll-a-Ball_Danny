@@ -11,6 +11,8 @@ public class Rotate : MonoBehaviour {
 
 	private Vector3 rotateValues = new Vector3(15, 30, 45);
 
+	public bool IsRotating { get; set; } = false;
+
 	#endregion ^ Variables
 
 
@@ -21,6 +23,7 @@ public class Rotate : MonoBehaviour {
 	}
 
 	private void Update() {
+		if (!IsRotating) return;
 		myTransform.Rotate(rotateValues * Time.deltaTime);
 	}
 

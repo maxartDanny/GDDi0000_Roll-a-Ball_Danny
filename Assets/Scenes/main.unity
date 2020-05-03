@@ -236,6 +236,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6768522423276971772, guid: 05a70bb206b5c92409938dcae46acfb5,
     type: 3}
   actionStackBusy: 0
+  rotateScript: {fileID: 654041577}
+  pickUpColour: {r: 1, g: 1, b: 0, a: 1}
 --- !u!54 &25298099
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1331,7 +1333,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 08cf8684ee563d74fa6015bb8093eb53, type: 2}
+  - {fileID: 2100000, guid: e8cf4d0aded94fc44aaa2f65a9be6df9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

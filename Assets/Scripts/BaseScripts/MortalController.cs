@@ -9,7 +9,6 @@ public abstract class MortalController : MonoBehaviour, IDamageable {
 
 	[SerializeField] private IDDamage damageType;
 
-
 	[SerializeField] private Rigidbody rbody;
 
 	protected int Health {
@@ -20,6 +19,8 @@ public abstract class MortalController : MonoBehaviour, IDamageable {
 			HealthUpdateEvent.Invoke(health);
 		}
 	}
+
+	public bool IsDead => health <= 0;
 
 	public IDDamage GetDamageID() => damageType;
 
