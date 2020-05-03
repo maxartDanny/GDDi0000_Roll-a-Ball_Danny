@@ -7,5 +7,5 @@ public interface IDamageable {
 
     IDDamage GetDamageID();
 
-    void DamageRecieve(IDDamage damageType, Vector3 sourcePos, Vector3 velocity);
+    void DamageRecieve(Transform other, IDDamage damageType, Vector3 sourcePos, Vector3 velocity);
 }

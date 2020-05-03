@@ -68,11 +68,15 @@ public class PlayerController : MortalController {
 				IDamageable damageable = collision.transform.GetComponent<IDamageable>();
 
 				if (damageable != null) {
-					damageable.DamageRecieve(GetDamageID(), transform.position, RBody.velocity);
+					damageable.DamageRecieve(transform, GetDamageID(), transform.position, RBody.velocity);
 				}
 
 				speedVector *= 0.1f;
 			}
+
+		} else if (collision.collider.CompareTag("Projectile")) {
+
+			collision.collider.GetComponent<Projectile>().Deflect(mouseDirection.forward, GetDamageID());
 
 		}
 	}
@@ -82,7 +86,7 @@ public class PlayerController : MortalController {
 
 	#region Implementation Methods
 
-	public override void DamageRecieve(IDDamage damageType, Vector3 sourcePos, Vector3 velocity) {
+	public override void DamageRecieve(Transform other, IDDamage damageType, Vector3 sourcePos, Vector3 velocity) {
 		throw new System.NotImplementedException();
 	}
 
@@ -95,6 +99,8 @@ public class PlayerController : MortalController {
 			RBody.velocity *= 0.5f;
 			RBody.angularVelocity *= 0.5f;
 		}
+		RBody.AddTorque(transform.up * 10, ForceMode.Force);
+
 	}
 
 	public void OnDashEvent() {

@@ -5,7 +5,7 @@
 /// </summary>
 public abstract class MortalController : MonoBehaviour, IDamageable {
 
-	private int health;
+	[SerializeField] private int health = 1;
 
 	[SerializeField] private IDDamage damageType;
 
@@ -29,5 +29,5 @@ public abstract class MortalController : MonoBehaviour, IDamageable {
 	public ReturnEvent<int> HealthUpdateEvent = new ReturnEvent<int>();
 
 
-	public abstract void DamageRecieve(IDDamage damageType, Vector3 sourcePos, Vector3 velocity);
+	public abstract void DamageRecieve(Transform other, IDDamage damageType, Vector3 sourcePos, Vector3 velocity);
 }
