@@ -44,6 +44,7 @@ public class PlayerController : MortalController {
 		Vector3 movement = new Vector3(inputs.Horizontal, 0, inputs.Vertical) * speed * Time.fixedDeltaTime;
 
 		speedVector += movement;
+		speedVector.y = RBody.velocity.y;
 
 		//Debug.LogFormat("Speed Vector: {0}", speedVector.magnitude);
 
