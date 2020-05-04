@@ -45,6 +45,14 @@ public class ScoreManager : MonoBehaviour {
 
 	public ReturnEvent<int> ScoreCountUpdateEvent = new ReturnEvent<int>();
 
+	#region Unity Methods
+
+	private void OnDestroy() {
+		ScoreCountUpdateEvent?.RemoveAllListeners();
+	}
+
+	#endregion ^ Unity Methods
+
 	public void AddScore(int points) {
 		ScoreCount += points;
 	}
