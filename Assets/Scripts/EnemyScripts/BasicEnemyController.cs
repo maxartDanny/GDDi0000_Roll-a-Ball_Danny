@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 /// <summary>
@@ -21,13 +20,16 @@ public class BasicEnemyController : EnemyController {
 	private Stack<Action> actionStack = new Stack<Action>();
 	[SerializeField] private bool actionStackBusy = false;
 
-	[SerializeField] private Rotate rotateScript;
-	[SerializeField] private Color pickUpColour;
+	private EnemyVisualsHandler visuals;
 
 	#endregion ^ Variables
 
 
 	#region Unity Methods
+
+	private void Awake() {
+		visuals = GetComponent<EnemyVisualsHandler>();
+	}
 
 	private void Update() {
 		if (actionStackBusy || actionStack.Count == 0) return;
@@ -73,6 +75,7 @@ public class BasicEnemyController : EnemyController {
 
 	private void CheckHealth() {
 		if (IsDead) {
+			visuals.SetInteractable(false);
 			actionStack.Push(Death);
 		}
 	}
@@ -103,8 +106,7 @@ public class BasicEnemyController : EnemyController {
 	private IEnumerator DeathSequence() {
 		yield return null;
 
-		rotateScript.GetComponent<Renderer>().material.SetColor("_BaseColor", pickUpColour);
-		rotateScript.IsRotating = true;
+		visuals.SetPickup();
 
 		IsPickup = true;
 

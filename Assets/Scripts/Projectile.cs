@@ -7,7 +7,6 @@ public class Projectile : MonoBehaviour {
 
 	#region Variables
 
-
 	[SerializeField] private LayerMask mask;
 
 	public IDDamage DamageType { get; private set; }
