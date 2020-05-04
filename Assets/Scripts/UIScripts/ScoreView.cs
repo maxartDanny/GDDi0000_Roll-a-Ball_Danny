@@ -20,10 +20,6 @@ public class ScoreView : MonoBehaviour {
 		OnScoreUpdate(ScoreManager.Instance.ScoreCount);
 	}
 
-	private void OnDestroy() {
-		ScoreManager.Instance.ScoreCountUpdateEvent.RemoveListener(OnScoreUpdate);
-	}
-
 	#endregion ^ Unity Methods
 
 

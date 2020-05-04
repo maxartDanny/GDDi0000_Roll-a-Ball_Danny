@@ -61,7 +61,7 @@ public class BasicEnemyController : EnemyController {
 
 		RBody?.AddForce(((Vector3.up * 0.5f) + velocity.normalized).normalized * (damage + impact), ForceMode.Impulse);
 
-		Health--;
+		//Health--;
 
 		CheckHealth();
 

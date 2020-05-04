@@ -76,7 +76,7 @@ public class PlayerController : MortalController {
 
 		} else if (collision.collider.CompareTag("Projectile")) {
 
-			collision.collider.GetComponent<Projectile>().Deflect(mouseDirection.forward, GetDamageID());
+			//collision.collider.GetComponent<Projectile>().Deflect(mouseDirection.forward, GetDamageID());
 
 		}
 	}
