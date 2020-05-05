@@ -10,28 +10,25 @@ public class BasicEnemyController : EnemyController {
 
 	#region Variables
 
-	[SerializeField] private float damage = 10;
-	[SerializeField] private float projectileSpeed = 100;
+	[SerializeField] protected float impactScale = 10;
 
-	[SerializeField] private GameObject projectilePrefab;
+	protected float maxImpact = 2;
 
-	private float maxImpact = 2;
+	protected Stack<Action> actionStack = new Stack<Action>();
+	[SerializeField] protected bool actionStackBusy = false;
 
-	private Stack<Action> actionStack = new Stack<Action>();
-	[SerializeField] private bool actionStackBusy = false;
-
-	private EnemyVisualsHandler visuals;
+	[SerializeField] protected EnemyVisualsHandler visuals;
 
 	#endregion ^ Variables
 
 
 	#region Unity Methods
 
-	private void Awake() {
-		visuals = GetComponent<EnemyVisualsHandler>();
+	protected void Start() {
+		CheckHealth();
 	}
 
-	private void Update() {
+	protected virtual void Update() {
 		if (actionStackBusy || actionStack.Count == 0) return;
 
 		actionStack.Pop().Invoke();
@@ -39,7 +36,7 @@ public class BasicEnemyController : EnemyController {
 		actionStackBusy = true;
 	}
 
-	private void OnCollisionEnter(Collision collision) {
+	protected virtual void OnCollisionEnter(Collision collision) {
 		if (IsPickup && collision.gameObject.CompareTag("Player")) {
 			Destroy(gameObject);
 			ScoreManager.Instance.AddScore(1);
@@ -59,13 +56,12 @@ public class BasicEnemyController : EnemyController {
 		sourcePos.y = myPos.y;
 		float impact = Mathf.Clamp(velocity.magnitude, 0, maxImpact);
 
-		RBody?.AddForce(((Vector3.up * 0.5f) + velocity.normalized).normalized * (damage + impact), ForceMode.Impulse);
+		RBody?.AddForce(((Vector3.up * 0.5f) + velocity.normalized).normalized * (impactScale + impact), ForceMode.Impulse);
 
-		//Health--;
+		Health--;
 
 		CheckHealth();
 
-		actionStack.Push(() => Attack(other));
 	}
 
 	#endregion ^ Implementation Methods
@@ -80,27 +76,8 @@ public class BasicEnemyController : EnemyController {
 		}
 	}
 
-	private void Attack(Transform target) {
-		StartCoroutine(AttackSequence(target, 0.8f));
-	}
-
-
 	private void Death() {
 		StartCoroutine(nameof(DeathSequence));
-	}
-
-	private IEnumerator AttackSequence(Transform target, float waitTime) {
-		yield return new WaitForSeconds(waitTime);
-
-        Vector3 dir = (target.position - transform.position).normalized * transform.localScale.x;
-        Quaternion look = Quaternion.LookRotation(dir);
-
-        GameObject projectile = Instantiate(projectilePrefab, transform.position + dir, look) as GameObject;
-
-        projectile.GetComponent<Projectile>().Initialize(target, GetDamageID(), projectileSpeed);
-
-		ActionComplete();
-
 	}
 
 	private IEnumerator DeathSequence() {
@@ -113,7 +90,7 @@ public class BasicEnemyController : EnemyController {
 		ActionComplete();
 	}
 
-	private void ActionComplete() { actionStackBusy = false; }
+	protected void ActionComplete() { actionStackBusy = false; }
 
 	#endregion ^ Helper Methods
 }
