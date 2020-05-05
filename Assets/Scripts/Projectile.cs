@@ -51,11 +51,11 @@ public class Projectile : MonoBehaviour {
 		float t = time / timeToDestination;
 		Vector3 newPos = Vector3.LerpUnclamped(initialPos, targetPos, t);
 
-		if (IsArching) {
+		//if (IsArching) {
 
-			Debug.LogFormat("{0}", CalcParabola(t));
-			newPos += archDir * CalcParabola(t);
-		}
+		//	Debug.LogFormat("{0}", CalcParabola(t));
+		//	newPos += archDir * CalcParabola(t);
+		//}
 
 		myTransform.position = newPos;
 
