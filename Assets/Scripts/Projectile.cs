@@ -12,6 +12,9 @@ public class Projectile : MonoBehaviour {
 	[SerializeField] private AnimationCurve arch;
 
 
+	[SerializeField] private Rigidbody rbody;
+
+
 	private Vector3 targetPos;
 	private Vector3 initialPos;
 	private Vector3 archDir;
@@ -31,7 +34,11 @@ public class Projectile : MonoBehaviour {
 
 	public IDDamage DamageType { get; private set; }
 
+	public Vector3 Position => myTransform.position;
+
 	public float Speed { get; private set; }
+
+	public Vector3 Velocity => rbody.velocity;
 
 	private bool IsArching { get; set; }
 
@@ -70,11 +77,11 @@ public class Projectile : MonoBehaviour {
 
 	}
 
-	private void OnDrawGizmos() {
-		Gizmos.DrawLine(initialPos, targetPos);
-		Gizmos.color = Color.red;
-		Gizmos.DrawLine(initialPos, initialPos + archDir);
-	}
+	//private void OnDrawGizmos() {
+	//	Gizmos.DrawLine(initialPos, targetPos);
+	//	Gizmos.color = Color.red;
+	//	Gizmos.DrawLine(initialPos, initialPos + archDir);
+	//}
 
 	#endregion ^ Unity Methods
 

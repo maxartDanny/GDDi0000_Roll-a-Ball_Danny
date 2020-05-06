@@ -40,6 +40,8 @@ public class BasicEnemyController : EnemyController {
 		if (IsPickup && collision.gameObject.CompareTag("Player")) {
 			Destroy(gameObject);
 			ScoreManager.Instance.AddScore(1);
+		} else if (collision.gameObject.CompareTag("Projectile")) {
+			OnProjectileCollide(collision.gameObject.GetComponent<Projectile>());
 		}
 	}
 
@@ -54,9 +56,10 @@ public class BasicEnemyController : EnemyController {
 
 		Vector3 myPos = transform.position;
 		sourcePos.y = myPos.y;
+		Vector3 impactDir = (myPos - sourcePos).normalized;
 		float impact = Mathf.Clamp(velocity.magnitude, 0, maxImpact);
 
-		RBody?.AddForce(((Vector3.up * 0.5f) + velocity.normalized).normalized * (impactScale + impact), ForceMode.Impulse);
+		RBody?.AddForce(((Vector3.up * 0.5f) + impactDir).normalized * (impactScale + impact), ForceMode.Impulse);
 
 		Health--;
 
@@ -91,6 +94,12 @@ public class BasicEnemyController : EnemyController {
 	}
 
 	protected void ActionComplete() { actionStackBusy = false; }
+
+	protected virtual void OnProjectileCollide(Projectile projectile) {
+
+		projectile.Deflect(GameManager.Instance.PlayerPosition - projectile.transform.position, GetDamageID());
+
+	}
 
 	#endregion ^ Helper Methods
 }

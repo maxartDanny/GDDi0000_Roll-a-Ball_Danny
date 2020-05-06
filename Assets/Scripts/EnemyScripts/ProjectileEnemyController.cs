@@ -17,8 +17,11 @@ public class ProjectileEnemyController : BasicEnemyController {
 	#region Public Methods
 
 	public override void DamageRecieve(Transform other, IDDamage damageType, Vector3 sourcePos, Vector3 velocity) {
+		if (IsDead) return;
+
 		base.DamageRecieve(other, damageType, sourcePos, velocity);
 
+		Debug.LogFormat("{0} firing", name);
 		actionStack.Push(() => Attack(other));
 	}
 
@@ -43,6 +46,10 @@ public class ProjectileEnemyController : BasicEnemyController {
 
 		ActionComplete();
 
+	}
+
+	protected override void OnProjectileCollide(Projectile projectile) {
+		DamageRecieve(GameManager.Instance.Player.transform, projectile.DamageType, projectile.Position, projectile.Velocity);
 	}
 
 	#endregion ^ Helper Methods

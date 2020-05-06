@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 513
   arch:
     serializedVersion: 2
     m_Curve:
@@ -257,3 +257,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  rbody: {fileID: 6768522423276971773}
