@@ -19,9 +19,19 @@ public class PlayerController : MortalController {
 
 	[SerializeField] private Vector3 speedVector = new Vector3();
 
-	private float dashPower = 25f;
-	private float dashTime = 0;
-	private float dashCooldown = 0.5f;
+	private Transform myTransform;
+	private Vector3 prevPos = new Vector3();
+	private Vector3 calcVelocity = new Vector3();
+
+	private float defaultMoveDamper = 0.3f;
+	private float reducedMoveDamper = 0.9f;
+	private float moveDamper = 0.3f;
+	private float reducedMoveTimer = 0;
+	private float reducedMoveCooldown = 1;
+
+	private float dashPower = 2f;
+	private float dashTimer = 0f;
+	private float dashCooldown = 1f;
 
 	#endregion ^ Variables
 
@@ -35,22 +45,40 @@ public class PlayerController : MortalController {
 
 	#region Unity Methods
 
+	private void Awake() {
+		GameManager.Instance.AssignePlayer(this);
+	}
+
 	private void Start() {
 		RBody.maxAngularVelocity = float.MaxValue;
+		myTransform = transform;
+		prevPos = myTransform.position;
 	}
 
 	private void FixedUpdate() {
 
-		Vector3 movement = new Vector3(inputs.Horizontal, 0, inputs.Vertical) * speed * Time.fixedDeltaTime;
+		if (dashTimer > 0) {
+			dashTimer -= Time.fixedDeltaTime;
 
-		speedVector += movement;
-		speedVector.y = RBody.velocity.y;
+			if (dashTimer <= 0) {
+			}
+		}
+
+		calcVelocity = (myTransform.position - prevPos) / Time.fixedDeltaTime;
+		prevPos = myTransform.position;
+
+		Vector3 movement = new Vector3(inputs.Horizontal, 0, inputs.Vertical).normalized * speed * Time.fixedDeltaTime;
+
+		Vector3 velocity = RBody.velocity;
+
+		//speedVector += movement;
+		//speedVector.y = RBody.velocity.y;
 
 		//Debug.LogFormat("Speed Vector: {0}", speedVector.magnitude);
 
-		RBody.velocity = speedVector;
-
-		speedVector *= 0.9f;
+		//RBody.velocity *= Mathf.LerpUnclamped(0.95f, 0, Time.fixedDeltaTime);
+		RBody.AddForce(-velocity * moveDamper);
+		RBody.velocity += movement;
 
 	}
 
@@ -61,9 +89,9 @@ public class PlayerController : MortalController {
 	private void OnCollisionEnter(Collision collision) {
 		if (collision.collider.CompareTag("Enemy")) {
 
-			//Debug.LogFormat("Hit enemy {0}", speedVector.magnitude);
+			Debug.LogFormat("Hit enemy RB: {0} | calc: {1}", RBody.velocity.magnitude, calcVelocity.magnitude);
 
-			if (speedVector.magnitude >= 9f) {
+			if (calcVelocity.magnitude >= 8f) {
 
 				IDamageable damageable = collision.transform.GetComponent<IDamageable>();
 
@@ -71,7 +99,8 @@ public class PlayerController : MortalController {
 					damageable.DamageRecieve(transform, GetDamageID(), transform.position, RBody.velocity);
 				}
 
-				speedVector *= 0.1f;
+				RBody.velocity *= 0.1f;
+				dashTimer = 0f;
 			}
 
 		} else if (collision.collider.CompareTag("Projectile")) {
@@ -99,24 +128,24 @@ public class PlayerController : MortalController {
 			RBody.velocity *= 0.5f;
 			RBody.angularVelocity *= 0.5f;
 		}
-		RBody.AddTorque(transform.up * 10, ForceMode.Force);
 
 	}
 
 	public void OnDashEvent() {
 
-		if (dashTime > Time.time) return;
+		if (dashTimer > 0) return;
 
 		//RBody.AddTorque(transform.up * 10, ForceMode.Force);
 
-		speedVector += mouseDirection.forward * dashPower;
-		speedVector.y = 0;
+		//speedVector += mouseDirection.forward * dashPower;
+		//speedVector.y = 0;
 
-		//RBody.AddForce(mouseDirection.forward * 1000);
+		RBody.AddTorque(transform.up * 5, ForceMode.Force);
+		RBody.AddForce(mouseDirection.forward * dashPower, ForceMode.Impulse);
 
 		//RBody.angularVelocity += mouseDirection.up;
 
-		dashTime = Time.time + dashCooldown;
+		dashTimer = dashCooldown;
 
 		DashActivatedEvent?.Invoke(dashCooldown);
 
