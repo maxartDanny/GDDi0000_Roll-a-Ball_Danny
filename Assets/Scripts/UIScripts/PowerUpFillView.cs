@@ -13,17 +13,23 @@ public class PowerUpFillView : MonoBehaviour {
 	private float time = 0;
 	private float timer = 0;
 
+	private PlayerController player;
+
 	#endregion ^ Variables
 
 
 	#region Unity Methods
 
-	private void Update() {
-		if (timer > 0) {
-			timer = Mathf.Clamp(timer - Time.deltaTime, 0, time);
+	private void Start() {
+		player = GameManager.Instance.Player;
+	}
 
-			fill.fillAmount = 1 - timer / time;
-		}
+	private void Update() {
+		if (player == null) return;
+
+        timer = Mathf.Clamp(player.DashTimer, 0, player.DashCooldown);
+
+        fill.fillAmount = 1 - timer / player.DashCooldown;
 	}
 
 	#endregion ^ Unity Methods
@@ -31,12 +37,6 @@ public class PowerUpFillView : MonoBehaviour {
 
 	#region Public Methods
 
-	public void DoFill(float time) {
-		this.time = time;
-		timer = time;
-
-		fill.fillAmount = 0;
-	}
 
 	#endregion ^ Public Methods
 

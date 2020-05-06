@@ -33,10 +33,6 @@ public class PowerUpsView : MonoBehaviour {
 		kickObject.SetActive(state);
 	}
 
-	public void OnDashActivate(float cooldown) {
-		dashFill.DoFill(cooldown);
-	}
-
 	#endregion ^ Public Methods
 
 

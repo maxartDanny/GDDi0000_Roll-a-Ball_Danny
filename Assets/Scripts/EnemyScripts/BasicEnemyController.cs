@@ -97,6 +97,7 @@ public class BasicEnemyController : EnemyController {
 
 	protected virtual void OnProjectileCollide(Projectile projectile) {
 
+		Debug.LogFormat("{0} deflected projectile", name);
 		projectile.Deflect(GameManager.Instance.PlayerPosition - projectile.transform.position, GetDamageID());
 
 	}

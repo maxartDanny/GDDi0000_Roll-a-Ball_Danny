@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 512
   arch:
     serializedVersion: 2
     m_Curve:

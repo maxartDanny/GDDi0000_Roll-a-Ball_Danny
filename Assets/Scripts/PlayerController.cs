@@ -36,6 +36,14 @@ public class PlayerController : MortalController {
 	#endregion ^ Variables
 
 
+	#region Properties
+
+	public float DashTimer => dashTimer;
+	public float DashCooldown => dashCooldown;
+
+	#endregion ^ Properties
+
+
 	#region Events
 
 	[SerializeField] private FloatEvent DashActivatedEvent = new FloatEvent();
@@ -132,7 +140,6 @@ public class PlayerController : MortalController {
 	}
 
 	public void OnDashEvent() {
-
 		if (dashTimer > 0) return;
 
 		//RBody.AddTorque(transform.up * 10, ForceMode.Force);
@@ -146,9 +153,6 @@ public class PlayerController : MortalController {
 		//RBody.angularVelocity += mouseDirection.up;
 
 		dashTimer = dashCooldown;
-
-		DashActivatedEvent?.Invoke(dashCooldown);
-
 	}
 
 	#endregion ^ Public Events
