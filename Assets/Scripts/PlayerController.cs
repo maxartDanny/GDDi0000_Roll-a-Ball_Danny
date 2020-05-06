@@ -61,7 +61,7 @@ public class PlayerController : MortalController {
 	private void OnCollisionEnter(Collision collision) {
 		if (collision.collider.CompareTag("Enemy")) {
 
-			Debug.LogFormat("Hit enemy {0}", speedVector.magnitude);
+			//Debug.LogFormat("Hit enemy {0}", speedVector.magnitude);
 
 			if (speedVector.magnitude >= 9f) {
 
