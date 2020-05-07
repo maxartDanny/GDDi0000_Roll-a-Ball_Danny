@@ -153,7 +153,7 @@ public class PlayerController : MortalController {
 		RBody.AddForce(mouseDirection.forward * dashPower, ForceMode.Impulse);
 
 		//RBody.angularVelocity += mouseDirection.up;
-
+		DashActivatedEvent.Invoke(dashCooldown);
 		dashTimer = dashCooldown;
 	}
 
