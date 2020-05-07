@@ -25,7 +25,7 @@ public class FollowPlayer : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
-		myTransform.position = target.position;
+		myTransform.position = Vector3.Lerp(myTransform.position, target.position, 0.85f);
 	}
 
 	#endregion ^ Unity Methods

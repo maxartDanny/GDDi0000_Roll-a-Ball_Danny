@@ -2807,7 +2807,6 @@ GameObject:
   - component: {fileID: 666822631}
   - component: {fileID: 666822630}
   - component: {fileID: 666822632}
-  - component: {fileID: 666822633}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2903,19 +2902,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &666822633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 666822628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c65c6054026c5634cab4ab392f20473f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 272922994}
 --- !u!1001 &719164849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3518,7 +3504,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1641719547}
-  - {fileID: 1440152515}
   m_Father: {fileID: 442740734}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6319,7 +6304,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 820994662}
+    m_TransformParent: {fileID: 1636395924}
     m_Modifications:
     - target: {fileID: -9073994814856593655, guid: c908a7287c5cd5f4ca289104da6d7d6c,
         type: 3}
@@ -6529,7 +6514,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: c908a7287c5cd5f4ca289104da6d7d6c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.977
+      value: -1.477
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c908a7287c5cd5f4ca289104da6d7d6c,
         type: 3}
@@ -6584,12 +6569,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: c908a7287c5cd5f4ca289104da6d7d6c,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.3000001
+      value: 1.3000002
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c908a7287c5cd5f4ca289104da6d7d6c,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.3000001
+      value: 1.3000002
       objectReference: {fileID: 0}
     - target: {fileID: -4154779852888883423, guid: c908a7287c5cd5f4ca289104da6d7d6c,
         type: 3}
@@ -8367,6 +8352,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2076978243}
+  - {fileID: 1440152515}
   m_Father: {fileID: 442740734}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

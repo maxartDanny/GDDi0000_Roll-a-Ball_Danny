@@ -136,6 +136,7 @@ public class PlayerController : MortalController {
 		if (legActionController.FrontKick()) {
 			RBody.velocity *= 0.5f;
 			RBody.angularVelocity *= 0.5f;
+			RBody.AddForce(mouseDirection.forward * dashPower * 0.65f, ForceMode.Impulse);
 		}
 
 	}
