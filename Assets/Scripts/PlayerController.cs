@@ -31,7 +31,7 @@ public class PlayerController : MortalController {
 
 	private float dashPower = 2f;
 	private float dashTimer = 0f;
-	private float dashCooldown = 1f;
+	private float dashCooldown = 0.7f;
 
 	#endregion ^ Variables
 
@@ -105,6 +105,7 @@ public class PlayerController : MortalController {
 
 				if (damageable != null) {
 					damageable.DamageRecieve(transform, GetDamageID(), transform.position, RBody.velocity);
+					GameManager.Instance.HitStop.SmallHit();
 				}
 
 				RBody.velocity *= 0.1f;
@@ -112,8 +113,8 @@ public class PlayerController : MortalController {
 			}
 
 		} else if (collision.collider.CompareTag("Projectile")) {
-
-			//collision.collider.GetComponent<Projectile>().Deflect(mouseDirection.forward, GetDamageID());
+			//GameManager.Instance.HitStop.BigHit();
+			collision.collider.GetComponent<Projectile>().Deflect(mouseDirection.forward, GetDamageID());
 
 		}
 	}

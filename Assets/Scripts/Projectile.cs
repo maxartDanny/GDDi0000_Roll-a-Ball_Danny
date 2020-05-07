@@ -100,6 +100,8 @@ public class Projectile : MonoBehaviour {
 		timeToDestination = distToTarget / speed;
 
 		IsArching = true;
+
+		GameManager.Instance.HitStop.SmallHit();
 	}
 
 	public void Deflect(Vector3 direction, IDDamage damageType) {
@@ -112,6 +114,8 @@ public class Projectile : MonoBehaviour {
 		time = 0;
 		timeToDestination = direction.magnitude / Speed;
 		IsArching = false;
+
+		GameManager.Instance.HitStop.BigHit();
 	}
 
 	#endregion ^ Public Methods

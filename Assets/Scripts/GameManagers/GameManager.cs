@@ -32,18 +32,23 @@ public class GameManager : MonoBehaviour {
 
 	#endregion ^ Singleton
 
+
 	#region Properties
 
 	public PlayerController Player { get; private set; }
 
 	public Vector3 PlayerPosition => Player == null ? new Vector3() : Player.transform.position;
 
+	public HitStopManager HitStop { get; private set; }
+
 	#endregion ^ Properties
 
 
 	#region Unity Methods
 
-
+	private void Awake() {
+		HitStop = gameObject.AddComponent<HitStopManager>();
+	}
 
 	#endregion ^ Unity Methods
 
