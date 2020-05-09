@@ -73,6 +73,20 @@ namespace Audio {
 			return true;
 		}
 
+		public bool PlayAudio(string name, Vector3 position) {
+			if (settings == null) return false;
+
+			AudioSet set = settings.GetSet(name);
+			if (string.IsNullOrEmpty(set.Name)) {
+				Debug.LogFormat("Unable to find sound of: {0}", name);
+				return false;
+			}
+
+			AudioSource.PlayClipAtPoint(set.GetClip(), position);
+
+			return true;
+		}
+
 		#endregion ^ Public Methods
 
 

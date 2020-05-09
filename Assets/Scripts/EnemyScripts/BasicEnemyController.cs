@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Audio;
+using UnityEngine.Timeline;
 
 /// <summary>
 ///
@@ -41,8 +42,9 @@ public class BasicEnemyController : EnemyController {
 
 	protected virtual void OnCollisionEnter(Collision collision) {
 		if (IsPickup && collision.gameObject.CompareTag("Player")) {
-			Destroy(gameObject);
+			gameObject.SetActive(false);
 			ScoreManager.Instance.AddScore(1);
+			AudioManager.Instance.PlayAudio(Audio.Game.PICKUP_SOUND, transform.position);
 		} else if (collision.gameObject.CompareTag("Projectile")) {
 			OnProjectileCollide(collision.gameObject.GetComponent<Projectile>());
 		}
