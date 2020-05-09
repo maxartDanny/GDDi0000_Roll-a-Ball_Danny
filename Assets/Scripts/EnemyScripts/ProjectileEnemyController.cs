@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Audio;
 
 /// <summary>
 ///
@@ -43,6 +44,7 @@ public class ProjectileEnemyController : BasicEnemyController {
 		GameObject projectile = Instantiate(projectilePrefab, transform.position + dir, look) as GameObject;
 
 		projectile.GetComponent<Projectile>().Initialize(target, GetDamageID(), projectileSpeed);
+		AudioManager.Instance.PlayAudio(audioSource, Audio.Enemy.SHOOT);
 
 		ActionComplete();
 

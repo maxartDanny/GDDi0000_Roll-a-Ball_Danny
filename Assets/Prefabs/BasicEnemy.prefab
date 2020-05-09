@@ -130,6 +130,7 @@ MonoBehaviour:
   impactScale: 5
   actionStackBusy: 0
   visuals: {fileID: 6985796175404537775}
+  audioSource: {fileID: 7596743704894306697}
 --- !u!1001 &4597777562998379107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -217,3 +218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0720b5933d376af4295b870a0b16ca07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &7596743704894306697 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6243001128778165226, guid: b3c7517ce058cf04887e9cd3b40b2e24,
+    type: 3}
+  m_PrefabInstance: {fileID: 4597777562998379107}
+  m_PrefabAsset: {fileID: 0}

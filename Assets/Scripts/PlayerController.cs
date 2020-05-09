@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.UI;
+using Audio;
 
 /// <summary>
 ///
@@ -17,17 +16,15 @@ public class PlayerController : MortalController {
 
 	[SerializeField] private Transform mouseDirection;
 
-	[SerializeField] private Vector3 speedVector = new Vector3();
+
+	[SerializeField] private AudioSource audioSource;
 
 	private Transform myTransform;
 	private Vector3 prevPos = new Vector3();
 	private Vector3 calcVelocity = new Vector3();
 
-	private float defaultMoveDamper = 0.3f;
-	private float reducedMoveDamper = 0.9f;
 	private float moveDamper = 0.3f;
-	private float reducedMoveTimer = 0;
-	private float reducedMoveCooldown = 1;
+
 
 	private float dashPower = 2f;
 	private float dashTimer = 0f;
@@ -154,6 +151,7 @@ public class PlayerController : MortalController {
 
 		//RBody.angularVelocity += mouseDirection.up;
 		DashActivatedEvent.Invoke(dashCooldown);
+		AudioManager.Instance.PlayAudio(audioSource, Audio.Player.DASH);
 		dashTimer = dashCooldown;
 	}
 

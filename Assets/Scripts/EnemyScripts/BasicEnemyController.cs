@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Audio;
 
 /// <summary>
 ///
@@ -18,6 +19,8 @@ public class BasicEnemyController : EnemyController {
 	[SerializeField] protected bool actionStackBusy = false;
 
 	[SerializeField] protected EnemyVisualsHandler visuals;
+
+	[SerializeField] protected AudioSource audioSource;
 
 	#endregion ^ Variables
 
@@ -62,6 +65,7 @@ public class BasicEnemyController : EnemyController {
 		RBody?.AddForce(((Vector3.up * 0.5f) + impactDir).normalized * (impactScale + impact), ForceMode.Impulse);
 
 		Health--;
+		AudioManager.Instance.PlayAudio(audioSource, Audio.Enemy.HIT);
 
 		CheckHealth();
 

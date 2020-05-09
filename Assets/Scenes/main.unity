@@ -1461,21 +1461,10 @@ MonoBehaviour:
   legActionController: {fileID: 442740736}
   inputs: {fileID: 272922997}
   mouseDirection: {fileID: 1636395924}
-  speedVector: {x: 0, y: 0, z: 0}
+  audioSource: {fileID: 272922998}
   DashActivatedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 272922998}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!54 &272922996
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1542,7 +1531,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 729d7da5f03456246b066c14be81a2b0, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

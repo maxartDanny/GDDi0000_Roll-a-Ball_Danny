@@ -130,6 +130,7 @@ MonoBehaviour:
   impactScale: 5
   actionStackBusy: 0
   visuals: {fileID: 333640364228061370}
+  audioSource: {fileID: 954431726948861596}
   projectileSpeed: 40
   projectilePrefab: {fileID: 6768522423276971772, guid: 05a70bb206b5c92409938dcae46acfb5,
     type: 3}
@@ -225,3 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0720b5933d376af4295b870a0b16ca07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &954431726948861596 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6243001128778165226, guid: b3c7517ce058cf04887e9cd3b40b2e24,
+    type: 3}
+  m_PrefabInstance: {fileID: 6601514999456804214}
+  m_PrefabAsset: {fileID: 0}
