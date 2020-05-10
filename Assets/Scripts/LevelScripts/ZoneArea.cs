@@ -26,6 +26,8 @@ public class ZoneArea : MonoBehaviour {
 		if (Clear) return;
 
 		if (other.CompareTag("Player")) {
+			if (other.GetComponent<PlayerController>().IsDead) return;
+
 			ActivateArea();
 		} else if (other.CompareTag("Enemy")) {
 			enemies.Add(other.GetComponent<EnemyController>());
@@ -58,14 +60,21 @@ public class ZoneArea : MonoBehaviour {
 		if (allDead) ZoneComplete();
 	}
 
+	private void OnDestroy() {
+		GameManager.Instance?.PlayerDeathEvent.RemoveListener(OnPlayerDeathEvent);
+	}
+
 	#endregion ^ Unity Methods
 
 
-	#region Public Methods
+	#region Event Methods
 
+	private void OnPlayerDeathEvent() {
+		ZoneActive = false;
+		EnableWalls(false);
+	}
 
-
-	#endregion ^ Public Methods
+	#endregion ^ Event Methods
 
 
 	#region Helper Methods
@@ -75,6 +84,8 @@ public class ZoneArea : MonoBehaviour {
 
 		ZoneActive = true;
 		Clear = false;
+
+		GameManager.Instance.PlayerDeathEvent.AddListener(OnPlayerDeathEvent);
 	}
 
 	private void EnableWalls(bool state) {
@@ -91,6 +102,8 @@ public class ZoneArea : MonoBehaviour {
 		EnableWalls(false);
 
 		CheckpointKeeper.SetCheckpoint(transform);
+
+		GameManager.Instance.PlayerDeathEvent.RemoveListener(OnPlayerDeathEvent);
 	}
 
 	#endregion ^ Helper Methods

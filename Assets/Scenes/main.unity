@@ -1454,8 +1454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0e57ef070eb8d94e92eac98e5c45417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  damageType: 0
+  health: 1
+  damageType: 1
   rbody: {fileID: 272922996}
   speed: 25
   legActionController: {fileID: 442740736}
@@ -2577,7 +2577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31ff866c4c62d94a93412fd05a39200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 272922994}
+  target: {fileID: 272922995}
 --- !u!114 &442740736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4527,7 +4527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a012e2b2050b8fd44a9881adea1649f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 272922994}
+  target: {fileID: 272922995}
 --- !u!1001 &862156337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6464,7 +6464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1160546222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: 0, z: -60}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1837341044}

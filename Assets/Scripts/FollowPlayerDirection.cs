@@ -7,7 +7,7 @@ public class FollowPlayerDirection : MonoBehaviour {
 
 	#region Variables
 
-	[SerializeField] private Transform target;
+	[SerializeField] private PlayerController target;
 
 	private Transform myTransform;
 
@@ -20,15 +20,16 @@ public class FollowPlayerDirection : MonoBehaviour {
 
 	private void Awake() {
 		myTransform = transform;
-		prevPos = -target.forward;
+		prevPos = -target.MyTransform.forward;
 	}
 
 	private void FixedUpdate() {
+		if (target.IsDead) return;
 
-		Vector3 dir = target.position - prevPos;
+		Vector3 dir = target.MyTransform.position - prevPos;
 		if (dir.sqrMagnitude > 0.000001f) {
 			myTransform.rotation = Quaternion.LookRotation(dir, Vector3.up);
-			prevPos = target.position;
+			prevPos = target.MyTransform.position;
 		}
 	}
 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Audio;
+using System.Security.Cryptography;
 
 /// <summary>
 ///
@@ -37,6 +38,7 @@ public class PlayerController : MortalController {
 
 	public float DashTimer => dashTimer;
 	public float DashCooldown => dashCooldown;
+	public Transform MyTransform => myTransform;
 
 	#endregion ^ Properties
 
@@ -51,16 +53,15 @@ public class PlayerController : MortalController {
 	#region Unity Methods
 
 	private void Awake() {
-		GameManager.Instance.AssignePlayer(this);
-	}
-
-	private void Start() {
+		GameManager.Instance.AssignPlayer(this);
 		RBody.maxAngularVelocity = float.MaxValue;
 		myTransform = transform;
 		prevPos = myTransform.position;
 	}
 
 	private void FixedUpdate() {
+
+		if (IsDead) return;
 
 		if (dashTimer > 0) {
 			dashTimer -= Time.fixedDeltaTime;
@@ -100,7 +101,7 @@ public class PlayerController : MortalController {
 				IDamageable damageable = collision.transform.GetComponent<IDamageable>();
 
 				if (damageable != null) {
-					damageable.DamageRecieve(transform, GetDamageID(), transform.position, RBody.velocity);
+					damageable.DamageRecieve(transform, MyDamageID(), transform.position, RBody.velocity);
 					GameManager.Instance.HitStop.SmallHit();
 				}
 
@@ -109,9 +110,12 @@ public class PlayerController : MortalController {
 			}
 
 		} else if (collision.collider.CompareTag("Projectile")) {
-			//GameManager.Instance.HitStop.BigHit();
-			collision.collider.GetComponent<Projectile>().Deflect(mouseDirection.forward, GetDamageID());
 
+			Projectile projectile = collision.collider.GetComponent<Projectile>();
+			//projectile.Deflect(mouseDirection.forward, MyDamageID());
+			DamageRecieve(collision.transform, projectile.DamageType, projectile.Position, projectile.Velocity);
+			Destroy(projectile.gameObject);
+			GameManager.Instance.HitStop.BigHit();
 		}
 	}
 
@@ -121,12 +125,28 @@ public class PlayerController : MortalController {
 	#region Implementation Methods
 
 	public override void DamageRecieve(Transform other, IDDamage damageType, Vector3 sourcePos, Vector3 velocity) {
-		throw new System.NotImplementedException();
+		if (IsDead) return;
+
+		if (damageType != MyDamageID()) {
+
+			Vector3 myPos = myTransform.position;
+			sourcePos.y = myPos.y;
+			Vector3 impactDir = (myPos - sourcePos).normalized;
+			float impact = Mathf.Clamp(velocity.magnitude, 0, 2);
+
+			RBody?.AddForce(impactDir * (2 + impact), ForceMode.Impulse);
+
+
+			Debug.LogFormat("Before Health {0}", Health);
+			Health--;
+			Debug.LogFormat("After Health {0}", Health);
+			AudioManager.Instance.PlayAudio(audioSource, Audio.Enemy.HIT);
+		}
 	}
 
 	#endregion ^ Implementation Methods
 
-	#region Public Events
+	#region Event Methods
 
 	public void OnKickEvent() {
 		if (legActionController.FrontKick()) {
@@ -138,7 +158,7 @@ public class PlayerController : MortalController {
 	}
 
 	public void OnDashEvent() {
-		if (dashTimer > 0) return;
+		if (IsDead || dashTimer > 0) return;
 
 		//RBody.AddTorque(transform.up * 10, ForceMode.Force);
 
@@ -154,9 +174,29 @@ public class PlayerController : MortalController {
 		dashTimer = dashCooldown;
 	}
 
-	#endregion ^ Public Events
+	#endregion ^ Event Methods
 
-	#region Helper Methods
 
-	#endregion ^ Helper Methods
+	#region Public Methods
+
+	public void Respawn(Transform location) {
+
+		Debug.LogFormat("Respawning");
+
+		RBody.angularVelocity *= 0;
+		RBody.velocity *= 0;
+
+		if (location == null) {
+			myTransform.SetPositionAndRotation(new Vector3(0, myTransform.position.y, 0), Quaternion.identity);
+		} else {
+			myTransform.SetPositionAndRotation(
+				new Vector3(location.position.x, myTransform.position.y, location.position.z), location.rotation);
+		}
+
+		prevPos = myTransform.position;
+		calcVelocity *= 0;
+		Health = 1;
+	}
+
+	#endregion ^ Public Methods
 }

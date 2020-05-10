@@ -21,7 +21,7 @@ public class HurtBoxController : MonoBehaviour {
 		if (other.CompareTag(tagToHit)) {
 			IDamageable damageable = other.GetComponent<IDamageable>();
 			if (damageable != null) {
-				damageable.DamageRecieve(owner.transform, owner.GetDamageID(), owner.transform.position, owner.RBody.velocity);
+				damageable.DamageRecieve(owner.transform, owner.MyDamageID(), owner.transform.position, owner.RBody.velocity);
 				GameManager.Instance.HitStop.BigHit();
 			}
 		}

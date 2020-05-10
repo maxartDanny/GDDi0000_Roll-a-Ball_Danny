@@ -8,7 +8,7 @@ public class FollowPlayer : MonoBehaviour {
 	#region Variables
 
 
-	[SerializeField] private Transform target;
+	[SerializeField] private PlayerController target;
 
 	private Transform myTransform;
 
@@ -21,11 +21,12 @@ public class FollowPlayer : MonoBehaviour {
 
 	private void Awake() {
 		myTransform = transform;
-		prevPos = -target.forward;
+		prevPos = -target.MyTransform.forward;
 	}
 
 	private void FixedUpdate() {
-		myTransform.position = Vector3.Lerp(myTransform.position, target.position, 0.85f);
+		if (target.IsDead) return;
+		myTransform.position = Vector3.Lerp(myTransform.position, target.MyTransform.position, 0.85f);
 	}
 
 	#endregion ^ Unity Methods

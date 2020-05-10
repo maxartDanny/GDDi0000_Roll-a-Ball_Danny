@@ -43,7 +43,7 @@ public class ProjectileEnemyController : BasicEnemyController {
 
 		GameObject projectile = Instantiate(projectilePrefab, transform.position + dir, look) as GameObject;
 
-		projectile.GetComponent<Projectile>().Initialize(target, GetDamageID(), projectileSpeed);
+		projectile.GetComponent<Projectile>().Initialize(target, MyDamageID(), projectileSpeed);
 		AudioManager.Instance.PlayAudio(audioSource, Audio.Enemy.SHOOT);
 
 		ActionComplete();

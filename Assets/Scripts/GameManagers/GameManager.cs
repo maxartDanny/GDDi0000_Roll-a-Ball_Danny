@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 ///
@@ -33,6 +34,13 @@ public class GameManager : MonoBehaviour {
 	#endregion ^ Singleton
 
 
+	#region Variables
+
+	private float deathTime = 3f;
+	private float deathTimer = 0f;
+
+	#endregion ^ Variables
+
 	#region Properties
 
 	public PlayerController Player { get; private set; }
@@ -43,6 +51,12 @@ public class GameManager : MonoBehaviour {
 
 	#endregion ^ Properties
 
+	#region Events
+
+	public UnityEvent PlayerDeathEvent = new UnityEvent();
+
+	#endregion ^ Events
+
 
 	#region Unity Methods
 
@@ -50,21 +64,41 @@ public class GameManager : MonoBehaviour {
 		HitStop = gameObject.AddComponent<HitStopManager>();
 	}
 
+	private void OnDestroy() {
+		Player?.HealthUpdateEvent.RemoveListener(OnPlayerHealthUpdate);
+	}
+
+	private void Update() {
+		if (deathTimer > 0) {
+			deathTimer -= Time.deltaTime;
+
+			if (deathTimer <= 0)
+				Player?.Respawn(CheckpointKeeper.LastCheckpoint);
+		}
+	}
+
 	#endregion ^ Unity Methods
 
 
 	#region Public Methods
 
-	public void AssignePlayer(PlayerController player) {
+	public void AssignPlayer(PlayerController player) {
 		Player = player;
+		player.HealthUpdateEvent.AddListener(OnPlayerHealthUpdate);
 	}
 
 	#endregion ^ Public Methods
 
 
-	#region Helper Methods
+	#region Event Methods
 
+	private void OnPlayerHealthUpdate(int playerHealth) {
+		if (playerHealth <= 0) {
+			// player dead
+			deathTimer = deathTime;
+			PlayerDeathEvent?.Invoke();
+		}
+	}
 
-
-	#endregion ^ Helper Methods
+	#endregion ^ Event Methods
 }

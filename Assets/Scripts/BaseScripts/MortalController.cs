@@ -22,7 +22,7 @@ public abstract class MortalController : MonoBehaviour, IDamageable {
 
 	public bool IsDead => health <= 0;
 
-	public IDDamage GetDamageID() => damageType;
+	public IDDamage MyDamageID() => damageType;
 
 	public Rigidbody RBody => rbody;
 
