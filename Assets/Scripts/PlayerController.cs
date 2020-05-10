@@ -136,10 +136,7 @@ public class PlayerController : MortalController {
 
 			RBody?.AddForce(impactDir * (2 + impact), ForceMode.Impulse);
 
-
-			Debug.LogFormat("Before Health {0}", Health);
 			Health--;
-			Debug.LogFormat("After Health {0}", Health);
 			AudioManager.Instance.PlayAudio(audioSource, Audio.Enemy.HIT);
 		}
 	}
@@ -180,8 +177,6 @@ public class PlayerController : MortalController {
 	#region Public Methods
 
 	public void Respawn(Transform location) {
-
-		Debug.LogFormat("Respawning");
 
 		RBody.angularVelocity *= 0;
 		RBody.velocity *= 0;

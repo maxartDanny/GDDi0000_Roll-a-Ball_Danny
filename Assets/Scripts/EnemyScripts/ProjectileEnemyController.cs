@@ -22,7 +22,7 @@ public class ProjectileEnemyController : BasicEnemyController {
 
 		base.DamageRecieve(other, damageType, sourcePos, velocity);
 
-		Debug.LogFormat("{0} firing", name);
+		//Debug.LogFormat("{0} firing", name);
 		actionStack.Push(() => Attack(other));
 	}
 

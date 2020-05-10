@@ -26,6 +26,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 920fdaada4a19ab4fb8af2bf7d40b839, type: 3}
     - {fileID: 8300000, guid: 5b013c58ca4fcbe48a07cee0e623d1bd, type: 3}
     - {fileID: 8300000, guid: 114cd39a64279ed4a9efa69c4e926be2, type: 3}
+    - {fileID: 8300000, guid: f308156fc826770499713354594c70a7, type: 3}
+    - {fileID: 8300000, guid: 920fdaada4a19ab4fb8af2bf7d40b839, type: 3}
+    - {fileID: 8300000, guid: 5b013c58ca4fcbe48a07cee0e623d1bd, type: 3}
+    - {fileID: 8300000, guid: 114cd39a64279ed4a9efa69c4e926be2, type: 3}
+    - {fileID: 8300000, guid: e8cbc0a56006278488ea710054c08f3f, type: 3}
     PitchRange: {x: 0.95, y: 1.05}
   - Name: ProjectileSound
     clips:
