@@ -47,6 +47,7 @@ public class BasicEnemyController : EnemyController {
 			AudioManager.Instance.PlayAudio(Audio.Game.PICKUP_SOUND, transform.position);
 		} else if (collision.gameObject.CompareTag("Projectile")) {
 			OnProjectileCollide(collision.gameObject.GetComponent<Projectile>());
+			Destroy(collision.gameObject);
 		}
 	}
 
