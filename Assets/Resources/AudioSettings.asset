@@ -15,17 +15,23 @@ MonoBehaviour:
   audioSets:
   - Name: DashSound
     clips:
-    - {fileID: 8300000, guid: 729d7da5f03456246b066c14be81a2b0, type: 3}
-    PitchRange: {x: 1, y: 1}
+    - {fileID: 8300000, guid: a4bf895f77523324ca11dc52c455089b, type: 3}
+    - {fileID: 8300000, guid: ed8c47dbe89d4cd409971a249810bdd0, type: 3}
+    - {fileID: 8300000, guid: a0cfaf81ed1dd234787f5240824abfe6, type: 3}
+    - {fileID: 8300000, guid: 538c8b5f01c8cd842b60146582eae2fe, type: 3}
+    PitchRange: {x: 1, y: 1.05}
   - Name: HitSound
     clips:
     - {fileID: 8300000, guid: f308156fc826770499713354594c70a7, type: 3}
-    PitchRange: {x: 1, y: 1}
+    - {fileID: 8300000, guid: 920fdaada4a19ab4fb8af2bf7d40b839, type: 3}
+    - {fileID: 8300000, guid: 5b013c58ca4fcbe48a07cee0e623d1bd, type: 3}
+    - {fileID: 8300000, guid: 114cd39a64279ed4a9efa69c4e926be2, type: 3}
+    PitchRange: {x: 0.95, y: 1.05}
   - Name: ProjectileSound
     clips:
     - {fileID: 8300000, guid: d8f15d4875f3379459708f2facb5efd1, type: 3}
-    PitchRange: {x: 1, y: 1}
+    PitchRange: {x: 0.9, y: 1.1}
   - Name: PickupSound
     clips:
     - {fileID: 8300000, guid: 1a4097a93af4eb642bdc0723467c1624, type: 3}
-    PitchRange: {x: 1, y: 1}
+    PitchRange: {x: 0.95, y: 1.05}

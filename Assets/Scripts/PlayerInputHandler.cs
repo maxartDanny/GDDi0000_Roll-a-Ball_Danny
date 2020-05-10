@@ -44,7 +44,9 @@ public class PlayerInputHandler : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Space)) KickEvent?.Invoke();
 
-		if (Input.GetMouseButtonDown(0)) DashEvent?.Invoke();
+		if (Input.GetKeyDown(KeyCode.Mouse0)) {
+			DashEvent?.Invoke();
+		}
 	}
 
 	#endregion ^ Unity Methods

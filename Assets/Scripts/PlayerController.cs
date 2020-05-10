@@ -84,7 +84,6 @@ public class PlayerController : MortalController {
 		//RBody.velocity *= Mathf.LerpUnclamped(0.95f, 0, Time.fixedDeltaTime);
 		RBody.AddForce(-velocity * moveDamper);
 		RBody.velocity += movement;
-
 	}
 
 	private void OnDestroy() {
@@ -94,7 +93,7 @@ public class PlayerController : MortalController {
 	private void OnCollisionEnter(Collision collision) {
 		if (collision.collider.CompareTag("Enemy")) {
 
-			Debug.LogFormat("Hit enemy RB: {0} | calc: {1}", RBody.velocity.magnitude, calcVelocity.magnitude);
+			//Debug.LogFormat("Hit enemy RB: {0} | calc: {1}", RBody.velocity.magnitude, calcVelocity.magnitude);
 
 			if (calcVelocity.magnitude >= 8f) {
 
