@@ -13,7 +13,7 @@ public class SwordController : MonoBehaviour {
 
 	[SerializeField] private GameObject swordObject;
 
-	private float duration = 1.5f;
+	private float duration = 0.9f;
 	private float timer = 0;
 
 	#endregion ^ Variables
@@ -48,6 +48,7 @@ public class SwordController : MonoBehaviour {
 	#region Public Methods
 
 	public void DoSlash(Vector3 direction) {
+		if (timer > 0) return;
 		transform.rotation = Quaternion.LookRotation(direction);
 		swordAnimator.SetTrigger("Slash");
 		timer = duration;
