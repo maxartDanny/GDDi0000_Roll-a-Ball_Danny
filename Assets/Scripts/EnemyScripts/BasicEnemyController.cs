@@ -48,7 +48,7 @@ public class BasicEnemyController : EnemyController {
 
 		} else if (collision.gameObject.CompareTag("Projectile")) {
 			OnProjectileCollide(collision.gameObject.GetComponent<Projectile>());
-			Destroy(collision.gameObject);
+			//Destroy(collision.gameObject);
 		}
 	}
 

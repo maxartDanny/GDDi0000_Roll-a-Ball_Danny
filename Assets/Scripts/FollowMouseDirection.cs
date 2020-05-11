@@ -19,6 +19,13 @@ public class FollowMouseDirection : MonoBehaviour {
 
 	#endregion ^ Variables
 
+	#region Properties
+
+	public Vector3 Forward => myTransform.forward;
+	public Vector3 MouseWorldPos { get; private set; }
+
+	#endregion ^ Properties
+
 
 	#region Unity Methods
 
@@ -34,6 +41,7 @@ public class FollowMouseDirection : MonoBehaviour {
 		if (Physics.Raycast(dir, out hit, rayLength, mask)) {
 			Vector3 pos = hit.point;
 			pos.y = myTransform.position.y;
+			MouseWorldPos = pos;
 			myTransform.LookAt(pos);
 		}
 

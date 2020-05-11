@@ -29,7 +29,7 @@ public class HurtBoxController : MonoBehaviour {
 		} else if (deflect && other.CompareTag("Projectile")) {
 			Projectile projectile = other.GetComponent<Projectile>();
 			if (projectile.DamageType != owner.MyDamageID() && projectile != null) {
-				projectile.Deflect(owner.Direction, owner.MyDamageID());
+				projectile.Deflect(owner.Direction - projectile.Position, owner.MyDamageID());
 				GameManager.Instance.HitStop.SmallHit();
 			}
 		}

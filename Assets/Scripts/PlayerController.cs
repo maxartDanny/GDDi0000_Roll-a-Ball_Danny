@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using Audio;
-using System.Security.Cryptography;
-using UnityEngine.UIElements;
 
 /// <summary>
 ///
@@ -18,7 +16,7 @@ public class PlayerController : MortalController {
 
 	[SerializeField] private PlayerInputHandler inputs;
 
-	[SerializeField] private Transform mouseDirection;
+	[SerializeField] private FollowMouseDirection mouseDirection;
 
 	[SerializeField] private AudioSource audioSource;
 
@@ -41,7 +39,7 @@ public class PlayerController : MortalController {
 	public float DashTimer => dashTimer;
 	public float DashCooldown => dashCooldown;
 	public Transform MyTransform => myTransform;
-	public override Vector3 Direction => mouseDirection.forward;
+	public override Vector3 Direction => mouseDirection.MouseWorldPos; // I'm not using it as direction anymore...
 
 	#endregion ^ Properties
 
@@ -147,7 +145,7 @@ public class PlayerController : MortalController {
 		if (legActionController.FrontKick()) {
 			RBody.velocity *= 0.5f;
 			RBody.angularVelocity *= 0.5f;
-			RBody.AddForce(mouseDirection.forward * dashPower * 0.65f, ForceMode.Impulse);
+			RBody.AddForce(mouseDirection.Forward * dashPower * 0.65f, ForceMode.Impulse);
 		}
 
 	}
@@ -161,7 +159,7 @@ public class PlayerController : MortalController {
 		//speedVector.y = 0;
 
 		RBody.AddTorque(transform.up * 5, ForceMode.Force);
-		RBody.AddForce(mouseDirection.forward * dashPower, ForceMode.Impulse);
+		RBody.AddForce(mouseDirection.Forward * dashPower, ForceMode.Impulse);
 
 		//RBody.angularVelocity += mouseDirection.up;
 		AudioManager.Instance.PlayAudio(audioSource, Audio.Player.DASH);
@@ -169,7 +167,7 @@ public class PlayerController : MortalController {
 	}
 
 	public void OnSlashEvent() {
-		sword.DoSlash(mouseDirection.forward);
+		sword.DoSlash(mouseDirection.Forward);
 	}
 
 	#endregion ^ Event Methods
