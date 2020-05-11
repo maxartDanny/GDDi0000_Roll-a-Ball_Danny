@@ -26,6 +26,8 @@ public abstract class MortalController : MonoBehaviour, IDamageable {
 
 	public Rigidbody RBody => rbody;
 
+	public virtual Vector3 Direction => transform.forward;
+
 
 	public ReturnEvent<int> HealthUpdateEvent = new ReturnEvent<int>();
 

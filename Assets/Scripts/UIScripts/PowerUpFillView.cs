@@ -33,11 +33,4 @@ public class PowerUpFillView : MonoBehaviour {
 	}
 
 	#endregion ^ Unity Methods
-
-
-	#region Public Methods
-
-
-	#endregion ^ Public Methods
-
 }

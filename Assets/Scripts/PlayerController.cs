@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Audio;
 using System.Security.Cryptography;
+using UnityEngine.UIElements;
 
 /// <summary>
 ///
@@ -13,10 +14,11 @@ public class PlayerController : MortalController {
 
 	[SerializeField] private PlayerLegActionController legActionController;
 
+	[SerializeField] private SwordController sword;
+
 	[SerializeField] private PlayerInputHandler inputs;
 
 	[SerializeField] private Transform mouseDirection;
-
 
 	[SerializeField] private AudioSource audioSource;
 
@@ -39,13 +41,13 @@ public class PlayerController : MortalController {
 	public float DashTimer => dashTimer;
 	public float DashCooldown => dashCooldown;
 	public Transform MyTransform => myTransform;
+	public override Vector3 Direction => mouseDirection.forward;
 
 	#endregion ^ Properties
 
 
 	#region Events
 
-	[SerializeField] private FloatEvent DashActivatedEvent = new FloatEvent();
 
 	#endregion ^ Events
 
@@ -87,10 +89,6 @@ public class PlayerController : MortalController {
 		RBody.velocity += movement;
 	}
 
-	private void OnDestroy() {
-		DashActivatedEvent?.RemoveAllListeners();
-	}
-
 	private void OnCollisionEnter(Collision collision) {
 		if (collision.collider.CompareTag("Enemy")) {
 
@@ -112,7 +110,7 @@ public class PlayerController : MortalController {
 		} else if (collision.collider.CompareTag("Projectile")) {
 
 			Projectile projectile = collision.collider.GetComponent<Projectile>();
-			//projectile.Deflect(mouseDirection.forward, MyDamageID());
+			if (projectile.DamageType == MyDamageID()) return;
 			DamageRecieve(collision.transform, projectile.DamageType, projectile.Position, projectile.Velocity);
 			Destroy(projectile.gameObject);
 			GameManager.Instance.HitStop.BigHit();
@@ -166,9 +164,12 @@ public class PlayerController : MortalController {
 		RBody.AddForce(mouseDirection.forward * dashPower, ForceMode.Impulse);
 
 		//RBody.angularVelocity += mouseDirection.up;
-		DashActivatedEvent.Invoke(dashCooldown);
 		AudioManager.Instance.PlayAudio(audioSource, Audio.Player.DASH);
 		dashTimer = dashCooldown;
+	}
+
+	public void OnSlashEvent() {
+		sword.DoSlash(mouseDirection.forward);
 	}
 
 	#endregion ^ Event Methods

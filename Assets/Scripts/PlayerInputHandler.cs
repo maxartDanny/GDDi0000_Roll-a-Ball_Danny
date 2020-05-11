@@ -33,6 +33,8 @@ public class PlayerInputHandler : MonoBehaviour {
 
 	[SerializeField] private UnityEvent DashEvent = new UnityEvent();
 
+	[SerializeField] private UnityEvent SlashEvent = new UnityEvent();
+
 	#endregion ^ Events
 
 
@@ -47,21 +49,12 @@ public class PlayerInputHandler : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Mouse0)) {
 			DashEvent?.Invoke();
 		}
+
+		if (Input.GetKeyDown(KeyCode.Mouse1)) {
+			SlashEvent?.Invoke();
+		}
 	}
 
 	#endregion ^ Unity Methods
 
-
-	#region Public Methods
-
-
-
-	#endregion ^ Public Methods
-
-
-	#region Helper Methods
-
-
-
-	#endregion ^ Helper Methods
 }
