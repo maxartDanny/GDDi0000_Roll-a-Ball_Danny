@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 ///
 /// </summary>
-public class PlayerLegActionController : MonoBehaviour {
+public class PlayerLegActionController : MonoBehaviour, INormTime {
 
 	#region Variables
 
@@ -13,6 +13,11 @@ public class PlayerLegActionController : MonoBehaviour {
 
 
 	private bool animating = false;
+
+	private float timer = 0;
+	private float duration = 0.55f;
+
+	public float NormTime() => Mathf.Clamp01(timer / duration);
 
 	#endregion ^ Variables
 
@@ -42,7 +47,12 @@ public class PlayerLegActionController : MonoBehaviour {
 
 	private IEnumerator DoAction(GameObject leg) {
 		leg.SetActive(true);
-		yield return new WaitForSeconds(0.55f);
+		timer = duration;
+
+		while (timer > 0) {
+			timer -= Time.deltaTime;
+			yield return null;
+		}
 		leg.SetActive(false);
 		animating = false;
 	}

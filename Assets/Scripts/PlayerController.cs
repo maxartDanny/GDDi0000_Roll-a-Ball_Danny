@@ -4,7 +4,7 @@ using Audio;
 /// <summary>
 ///
 /// </summary>
-public class PlayerController : MortalController {
+public class PlayerController : MortalController, INormTime {
 
 	#region Variables
 
@@ -36,6 +36,7 @@ public class PlayerController : MortalController {
 
 	#region Properties
 
+	public float NormTime() => Mathf.Clamp01(dashTimer / dashCooldown);
 	public float DashTimer => dashTimer;
 	public float DashCooldown => dashCooldown;
 	public Transform MyTransform => myTransform;

@@ -3,7 +3,7 @@
 /// <summary>
 ///
 /// </summary>
-public class SwordController : MonoBehaviour {
+public class SwordController : MonoBehaviour, INormTime {
 
 	#region Variables
 
@@ -20,6 +20,8 @@ public class SwordController : MonoBehaviour {
 
 
 	#region Properties
+
+	public float NormTime() => Mathf.Clamp01(timer / duration);
 
 	public Rigidbody RBody => rbody;
 

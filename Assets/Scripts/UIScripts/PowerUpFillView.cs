@@ -8,12 +8,10 @@ public class PowerUpFillView : MonoBehaviour {
 
 	#region Variables
 
+
+	[SerializeField] private GameObject objectWithInterface;
+	private INormTime cooldown;
 	[SerializeField] private Image fill;
-
-	private float time = 0;
-	private float timer = 0;
-
-	private PlayerController player;
 
 	#endregion ^ Variables
 
@@ -21,15 +19,13 @@ public class PowerUpFillView : MonoBehaviour {
 	#region Unity Methods
 
 	private void Start() {
-		player = GameManager.Instance.Player;
+		cooldown = objectWithInterface.GetComponent<INormTime>();
 	}
 
 	private void Update() {
-		if (player == null) return;
+		if (cooldown == null) return;
 
-        timer = Mathf.Clamp(player.DashTimer, 0, player.DashCooldown);
-
-        fill.fillAmount = 1 - timer / player.DashCooldown;
+        fill.fillAmount = 1 - cooldown.NormTime();
 	}
 
 	#endregion ^ Unity Methods
