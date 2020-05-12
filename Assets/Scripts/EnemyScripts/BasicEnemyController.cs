@@ -104,9 +104,7 @@ public class BasicEnemyController : EnemyController {
 	protected void ActionComplete() { actionStackBusy = false; }
 
 	protected virtual void OnProjectileCollide(Projectile projectile) {
-
 		projectile.Deflect(GameManager.Instance.PlayerPosition - projectile.transform.position, MyDamageID());
-
 	}
 
 	#endregion ^ Helper Methods

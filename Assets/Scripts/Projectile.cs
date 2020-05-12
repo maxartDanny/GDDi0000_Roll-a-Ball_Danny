@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Audio;
+using UnityEngine;
 
 /// <summary>
 ///
@@ -11,8 +12,9 @@ public class Projectile : MonoBehaviour {
 
 	[SerializeField] private AnimationCurve arch;
 
-
 	[SerializeField] private Rigidbody rbody;
+
+	[SerializeField] private AudioSource audioSource;
 
 
 	private Vector3 targetPos;
@@ -105,6 +107,7 @@ public class Projectile : MonoBehaviour {
 	}
 
 	public void Deflect(Vector3 direction, IDDamage damageType) {
+		AudioManager.Instance.PlayAudio(audioSource, Audio.Mortal.DEFLECT_SOUND);
 
 		DamageType = damageType;
 

@@ -18,6 +18,8 @@ namespace Audio {
     public static class Mortal {
         public const string HIT_SOUND = "HitSound";
 
+        public const string DEFLECT_SOUND = "DeflectSound";
+
     }
 
     public static class Game {
