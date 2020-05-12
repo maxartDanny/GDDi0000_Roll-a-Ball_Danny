@@ -13,7 +13,7 @@ public class SwordController : MonoBehaviour, INormTime {
 
 	[SerializeField] private GameObject swordObject;
 
-	private float duration = 0.9f;
+	private float duration = 0.7f;
 	private float timer = 0;
 
 	#endregion ^ Variables
