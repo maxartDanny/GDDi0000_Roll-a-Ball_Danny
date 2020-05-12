@@ -8,9 +8,11 @@ namespace Audio {
     }
 
     public static class Player {
-        public static string HIT => Mortal.HIT_SOUND;
+        public const string HIT = "PlayerHit";
 
         public const string DASH = "DashSound";
+
+        public const string SLASH = "SlashSound";
     }
 
     public static class Mortal {

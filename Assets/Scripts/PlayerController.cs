@@ -133,7 +133,7 @@ public class PlayerController : MortalController {
 			RBody?.AddForce(impactDir * (2 + impact), ForceMode.Impulse);
 
 			Health--;
-			AudioManager.Instance.PlayAudio(audioSource, Audio.Enemy.HIT);
+			AudioManager.Instance.PlayAudio(audioSource, Audio.Player.HIT);
 		}
 	}
 
