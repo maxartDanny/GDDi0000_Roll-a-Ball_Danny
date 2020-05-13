@@ -31,6 +31,9 @@ public abstract class MortalController : MonoBehaviour, IDamageable {
 
 	public ReturnEvent<int> HealthUpdateEvent = new ReturnEvent<int>();
 
+	public void AddHealth(int amount) {
+		Health += amount;
+	}
 
 	public abstract void DamageRecieve(Transform other, IDDamage damageType, Vector3 sourcePos, Vector3 velocity);
 }

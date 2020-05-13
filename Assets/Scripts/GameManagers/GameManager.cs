@@ -50,6 +50,9 @@ public class GameManager : MonoBehaviour {
 	private float deathTime = 3f;
 	private float deathTimer = 0f;
 
+	private const string COMPLETION_PREF_ID = "Temp";
+	private bool gameCompleted = false;
+
 	#endregion ^ Variables
 
 	#region Properties
@@ -59,6 +62,8 @@ public class GameManager : MonoBehaviour {
 	public Vector3 PlayerPosition => Player == null ? new Vector3() : Player.transform.position;
 
 	public HitStopManager HitStop { get; private set; }
+
+	public bool GameCompleted => gameCompleted;
 
 	#endregion ^ Properties
 
@@ -73,6 +78,12 @@ public class GameManager : MonoBehaviour {
 
 	private void Awake() {
 		HitStop = gameObject.AddComponent<HitStopManager>();
+
+		if (PlayerPrefs.HasKey(COMPLETION_PREF_ID)) {
+			gameCompleted = PlayerPrefs.GetInt(COMPLETION_PREF_ID) > 0;
+		}
+
+		Debug.LogFormat("completion: {0}", gameCompleted);
 	}
 
 	private void OnDestroy() {
@@ -96,6 +107,12 @@ public class GameManager : MonoBehaviour {
 	public void AssignPlayer(PlayerController player) {
 		Player = player;
 		player.HealthUpdateEvent.AddListener(OnPlayerHealthUpdate);
+	}
+
+	public void BossComplete() {
+		gameCompleted = true;
+		PlayerPrefs.SetInt(COMPLETION_PREF_ID, 1);
+		PlayerPrefs.Save();
 	}
 
 	#endregion ^ Public Methods

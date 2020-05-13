@@ -68,7 +68,7 @@ public class BasicEnemyController : EnemyController {
 
 		RBody?.AddForce(((Vector3.up * 0.5f) + impactDir).normalized * (impactScale + impact), ForceMode.Impulse);
 
-		Health--;
+		AddHealth(-1);
 		AudioManager.Instance.PlayAudio(audioSource, Audio.Enemy.HIT);
 
 		CheckHealth();
