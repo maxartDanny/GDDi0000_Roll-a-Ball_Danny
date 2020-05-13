@@ -143,7 +143,7 @@ public class PlayerController : MortalController, INormTime {
 	#region Event Methods
 
 	public void OnKickEvent() {
-		if (legActionController.FrontKick()) {
+		if (!IsDead && legActionController.FrontKick()) {
 			RBody.velocity *= 0.5f;
 			RBody.angularVelocity *= 0.5f;
 			RBody.AddForce(mouseDirection.Forward * dashPower * 0.65f, ForceMode.Impulse);
@@ -168,6 +168,7 @@ public class PlayerController : MortalController, INormTime {
 	}
 
 	public void OnSlashEvent() {
+		if (IsDead) return;
 		sword.DoSlash(mouseDirection.Forward);
 	}
 
