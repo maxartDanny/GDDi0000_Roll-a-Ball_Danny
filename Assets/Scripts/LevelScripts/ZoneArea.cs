@@ -8,14 +8,26 @@ public class ZoneArea : MonoBehaviour {
 
 	#region Variables
 
-
 	[SerializeField] private GameObject[] lockWalls;
+
+	private bool clear = false;
+
 
 	private List<EnemyController> enemies = new List<EnemyController>();
 
 	public bool ZoneActive { get; private set; } = false;
 
-	public bool Clear { get; private set; } = false;
+	public bool Clear {
+		get { return clear; }
+		private set {
+			if (clear.Equals(value)) return;
+			clear = value;
+			ClearUpdateEvent.Invoke(clear);
+		}
+	}
+
+	public ReturnEvent<bool> ClearUpdateEvent = new ReturnEvent<bool>();
+
 
 	public List<EnemyController> Enemies => enemies;
 
@@ -89,7 +101,6 @@ public class ZoneArea : MonoBehaviour {
 
 		GameManager.Instance.PlayerDeathEvent.AddListener(OnPlayerDeathEvent);
 
-		Debug.LogFormat("Zone activated {0}", name);
 		GameManager.Instance.ZoneActivated(this);
 	}
 
