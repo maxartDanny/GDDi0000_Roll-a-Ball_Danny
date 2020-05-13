@@ -40,6 +40,8 @@ namespace Audio {
 
 		private AudioSettings settings;
 
+		private AudioSource pickupSource;
+
 		#endregion ^ Variables
 
 
@@ -49,6 +51,9 @@ namespace Audio {
 			settings = Resources.Load<AudioSettings>("AudioSettings");
 
 			Assert.IsNotNull(settings, "Unable to find AudioSettings from Resources folder");
+
+			pickupSource = gameObject.AddComponent<AudioSource>();
+			pickupSource.playOnAwake = false;
 		}
 
 		#endregion ^ Unity Methods
@@ -83,6 +88,22 @@ namespace Audio {
 			}
 
 			AudioSource.PlayClipAtPoint(set.GetClip(), position);
+
+			return true;
+		}
+
+		public bool PlayPickup() {
+			if (settings == null) return false;
+
+			AudioSet set = settings.GetSet(Audio.Game.PICKUP_SOUND);
+			if (string.IsNullOrEmpty(set.Name)) {
+				Debug.LogFormat("Unable to find sound of: {0}", name);
+				return false;
+			}
+
+			pickupSource.Stop();
+			pickupSource.clip = set.GetClip();
+			pickupSource.Play();
 
 			return true;
 		}

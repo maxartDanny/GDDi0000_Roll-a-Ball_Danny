@@ -24,7 +24,7 @@ public class PickupCollider : MonoBehaviour {
     private void OnTrigger() {
         transform.parent.gameObject.SetActive(false);
         ScoreManager.Instance.AddScore(1);
-        AudioManager.Instance.PlayAudio(Audio.Game.PICKUP_SOUND, transform.position);
+        AudioManager.Instance.PlayPickup();
     }
 
 }

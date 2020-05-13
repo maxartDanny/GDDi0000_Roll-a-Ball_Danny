@@ -87,7 +87,7 @@ public class BasicEnemyController : EnemyController {
 	}
 
 	private IEnumerator DeathSequence() {
-		yield return null;
+		yield return new WaitForSeconds(0.25f);
 
 		visuals.SetPickup();
 
