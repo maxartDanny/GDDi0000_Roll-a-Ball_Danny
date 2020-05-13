@@ -7,11 +7,11 @@ public class HitStopManager : MonoBehaviour {
 
 	#region Variables
 
-	private const float REDUCED_TIME_SCALE = 0.1f;
+	private const float REDUCED_TIME_SCALE = 0.05f;
 	private const float NORMAL_TIME_SCALE = 1f;
 
-	private const float SMALL_INCREASE = 0.1f;
-	private const float BIG_INCREASE = 0.5f;
+	private const float SMALL_INCREASE = 0.15f;
+	private const float BIG_INCREASE = 0.8f;
 
 	private float linear = 0;
 	private float quad = 0;
@@ -41,7 +41,10 @@ public class HitStopManager : MonoBehaviour {
 			lerpTimer = Mathf.Clamp(lerpTimer - Time.unscaledDeltaTime, 0, lerpTime);
 
 			//Time.timeScale = Mathf.Lerp(prevTimeScale, targetTimeScale, 1 - LerpValue);
-			//if (lerpTimer <= 0)
+
+			if (lerpTimer <= 0) {
+				Time.timeScale = NORMAL_TIME_SCALE;
+			}
 		}
 
 		if (linear <= 0) return;
@@ -62,11 +65,11 @@ public class HitStopManager : MonoBehaviour {
 	#region Public Methods
 
 	public void SmallHit() {
-		AddLinear(SMALL_INCREASE);
+		SetQuad(SMALL_INCREASE);
 	}
 
 	public void BigHit() {
-		AddLinear(BIG_INCREASE);
+		SetQuad(BIG_INCREASE);
 	}
 
 	#endregion ^ Public Methods
@@ -74,19 +77,21 @@ public class HitStopManager : MonoBehaviour {
 
 	#region Helper Methods
 
-	private void AddLinear(float amount) {
+	private void SetQuad(float amount) {
 		//if (quad <= 0) {
 		//	SetTargetScale(REDUCED_TIME_SCALE);
 		//}
 
 		linear = Mathf.Clamp01(linear + amount);
-		quad = linear * linear;
-		SetTargetScale(1 - quad);
+		quad = amount * amount;
+		SetTargetScale(REDUCED_TIME_SCALE, quad);
 	}
 
-	private void SetTargetScale(float target) {
+	private void SetTargetScale(float targetScale, float time) {
 		prevTimeScale = Time.timeScale;
-		targetTimeScale = target;
+		Time.timeScale = targetScale;
+		//targetTimeScale = target;
+		lerpTime = time;
 		lerpTimer = lerpTime;
 	}
 

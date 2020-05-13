@@ -23,14 +23,13 @@ public class HurtBoxController : MonoBehaviour {
 		if (other.CompareTag(tagToHit)) {
 			IDamageable damageable = other.GetComponent<IDamageable>();
 			if (damageable != null) {
+				GameManager.Instance.HitStop.SmallHit();
 				damageable.DamageRecieve(owner.transform, owner.MyDamageID(), owner.transform.position, owner.RBody.velocity);
-				GameManager.Instance.HitStop.BigHit();
 			}
 		} else if (deflect && other.CompareTag("Projectile")) {
 			Projectile projectile = other.GetComponent<Projectile>();
 			if (projectile.DamageType != owner.MyDamageID() && projectile != null) {
 				projectile.Deflect(owner.Direction - projectile.Position, owner.MyDamageID());
-				GameManager.Instance.HitStop.SmallHit();
 			}
 		}
 	}
