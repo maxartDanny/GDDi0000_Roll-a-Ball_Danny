@@ -52,12 +52,14 @@ public class PlayerInputHandler : MonoBehaviour {
 		horizontal = Input.GetAxis("Horizontal");
 		vertical = Input.GetAxis("Vertical");
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			doKick = true;
-		}
-
 		if (Input.GetKeyDown(KeyCode.Mouse0)) {
 			doDash = true;
+		}
+
+		if (!GameManager.Instance.GameCompleted) return;
+
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			doKick = true;
 		}
 
 		if (Input.GetKeyDown(KeyCode.Mouse1)) {
