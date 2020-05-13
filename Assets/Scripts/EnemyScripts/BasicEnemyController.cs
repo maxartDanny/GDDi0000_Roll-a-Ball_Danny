@@ -41,12 +41,7 @@ public class BasicEnemyController : EnemyController {
 	}
 
 	protected virtual void OnCollisionEnter(Collision collision) {
-		if (IsPickup && collision.gameObject.CompareTag("Player")) {
-			gameObject.SetActive(false);
-			ScoreManager.Instance.AddScore(1);
-			AudioManager.Instance.PlayAudio(Audio.Game.PICKUP_SOUND, transform.position);
-
-		} else if (collision.gameObject.CompareTag("Projectile")) {
+		if (collision.gameObject.CompareTag("Projectile")) {
 			OnProjectileCollide(collision.gameObject.GetComponent<Projectile>());
 			//Destroy(collision.gameObject);
 		}
