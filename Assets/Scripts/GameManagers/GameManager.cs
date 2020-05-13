@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour {
 
 	public UnityEvent PlayerDeathEvent = new UnityEvent();
 
+	public ReturnEvent<ZoneArea> ZoneActivatedEvent = new ReturnEvent<ZoneArea>();
+
 	#endregion ^ Events
 
 
@@ -82,12 +84,11 @@ public class GameManager : MonoBehaviour {
 		if (PlayerPrefs.HasKey(COMPLETION_PREF_ID)) {
 			gameCompleted = PlayerPrefs.GetInt(COMPLETION_PREF_ID) > 0;
 		}
-
-		Debug.LogFormat("completion: {0}", gameCompleted);
 	}
 
 	private void OnDestroy() {
 		Player?.HealthUpdateEvent.RemoveListener(OnPlayerHealthUpdate);
+		ZoneActivatedEvent?.RemoveAllListeners();
 	}
 
 	private void Update() {
@@ -113,6 +114,10 @@ public class GameManager : MonoBehaviour {
 		gameCompleted = true;
 		PlayerPrefs.SetInt(COMPLETION_PREF_ID, 1);
 		PlayerPrefs.Save();
+	}
+
+	public void ZoneActivated(ZoneArea zone) {
+		ZoneActivatedEvent.Invoke(zone);
 	}
 
 	#endregion ^ Public Methods

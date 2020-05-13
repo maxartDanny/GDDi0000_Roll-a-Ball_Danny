@@ -13,9 +13,11 @@ public class ZoneArea : MonoBehaviour {
 
 	private List<EnemyController> enemies = new List<EnemyController>();
 
-	private bool ZoneActive { get; set; } = false;
+	public bool ZoneActive { get; private set; } = false;
 
-	private bool Clear { get; set; } = false;
+	public bool Clear { get; private set; } = false;
+
+	public List<EnemyController> Enemies => enemies;
 
 	#endregion ^ Variables
 
@@ -86,6 +88,9 @@ public class ZoneArea : MonoBehaviour {
 		Clear = false;
 
 		GameManager.Instance.PlayerDeathEvent.AddListener(OnPlayerDeathEvent);
+
+		Debug.LogFormat("Zone activated {0}", name);
+		GameManager.Instance.ZoneActivated(this);
 	}
 
 	private void EnableWalls(bool state) {
