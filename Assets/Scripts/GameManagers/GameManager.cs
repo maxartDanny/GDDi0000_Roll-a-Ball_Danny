@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	#region Singleton
 
 	private static GameManager instance;
+	private static bool applicationQuitting = false;
 
 	public static GameManager Instance {
 		get {
@@ -20,6 +21,11 @@ public class GameManager : MonoBehaviour {
 
 	[RuntimeInitializeOnLoadMethod]
 	private static void Init() {
+
+		if (applicationQuitting) return;
+
+		Application.quitting += OnApplicationExit;
+
 		// Unity replaces a destroyed game object with a non-null "destroyed" object.
 		// Using .Equals checks against that.
 		if (instance == null || instance.Equals(null)) {
@@ -29,6 +35,11 @@ public class GameManager : MonoBehaviour {
 
 			Debug.LogFormat("Spawned new {0} singleton", typeof(GameManager));
 		}
+	}
+
+	private static void OnApplicationExit() {
+		Application.quitting -= OnApplicationExit;
+		applicationQuitting = true;
 	}
 
 	#endregion ^ Singleton
