@@ -11,11 +11,18 @@ public class ZoneArea : MonoBehaviour {
 	[SerializeField] private GameObject[] lockWalls;
 
 	private bool clear = false;
-
+	private bool zoneActive = false;
 
 	private List<EnemyController> enemies = new List<EnemyController>();
 
-	public bool ZoneActive { get; private set; } = false;
+	public bool ZoneActive {
+		get { return zoneActive; }
+		private set {
+			if (zoneActive.Equals(value)) return;
+			zoneActive = value;
+			ZoneActiveUpdateEvent.Invoke(zoneActive);
+		}
+	}
 
 	public bool Clear {
 		get { return clear; }
@@ -27,6 +34,8 @@ public class ZoneArea : MonoBehaviour {
 	}
 
 	public ReturnEvent<bool> ClearUpdateEvent = new ReturnEvent<bool>();
+
+	public ReturnEvent<bool> ZoneActiveUpdateEvent = new ReturnEvent<bool>();
 
 
 	public List<EnemyController> Enemies => enemies;
@@ -76,6 +85,9 @@ public class ZoneArea : MonoBehaviour {
 
 	private void OnDestroy() {
 		GameManager.Instance?.PlayerDeathEvent.RemoveListener(OnPlayerDeathEvent);
+
+		ZoneActiveUpdateEvent?.RemoveAllListeners();
+		ClearUpdateEvent?.RemoveAllListeners();
 	}
 
 	#endregion ^ Unity Methods

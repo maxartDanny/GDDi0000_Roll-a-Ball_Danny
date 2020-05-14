@@ -99,7 +99,7 @@ public class PlayerController : MortalController, INormTime {
 
 				if (damageable != null) {
 					damageable.DamageRecieve(transform, MyDamageID(), transform.position, RBody.velocity);
-					GameManager.Instance.HitStop.SmallHit();
+					//GameManager.Instance.HitStop.SmallHit();
 				}
 
 				RBody.velocity *= 0.1f;

@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour {
 
 	public PlayerController Player { get; private set; }
 
+	public UITBCController TBC { get; private set; }
+
 	public Vector3 PlayerPosition => Player == null ? new Vector3() : Player.transform.position;
 
 	public HitStopManager HitStop { get; private set; }
@@ -108,6 +110,10 @@ public class GameManager : MonoBehaviour {
 	public void AssignPlayer(PlayerController player) {
 		Player = player;
 		player.HealthUpdateEvent.AddListener(OnPlayerHealthUpdate);
+	}
+
+	public void AssignTBC(UITBCController tbc) {
+		TBC = tbc;
 	}
 
 	public void BossComplete() {

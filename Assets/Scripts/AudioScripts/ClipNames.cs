@@ -24,6 +24,10 @@ namespace Audio {
 
     public static class Game {
         public const string PICKUP_SOUND = "PickupSound";
+
+        public const string TO_BE_CONTINUED_IN = "ToBeContinuedIn";
+
+        public const string TO_BE_CONTINUED = "ToBeContinued";
     }
 
 }

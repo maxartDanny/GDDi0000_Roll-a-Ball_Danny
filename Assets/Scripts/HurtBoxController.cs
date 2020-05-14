@@ -11,7 +11,6 @@ public class HurtBoxController : MonoBehaviour {
 
 	[SerializeField] private MortalController owner;
 
-
 	[SerializeField] private bool deflect = false;
 
 	#endregion ^ Variables

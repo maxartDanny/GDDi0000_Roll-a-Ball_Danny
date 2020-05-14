@@ -7,8 +7,6 @@ public class SwordController : MonoBehaviour, INormTime {
 
 	#region Variables
 
-	[SerializeField] private Rigidbody rbody;
-
 	[SerializeField] private Animator swordAnimator;
 
 	[SerializeField] private GameObject swordObject;
@@ -23,16 +21,10 @@ public class SwordController : MonoBehaviour, INormTime {
 
 	public float NormTime() => Mathf.Clamp01(timer / duration);
 
-	public Rigidbody RBody => rbody;
-
 	#endregion ^ Properties
 
 
 	#region Unity Methods
-
-	private void Awake() {
-		//rbody.maxAngularVelocity = float.MaxValue;
-	}
 
 	private void FixedUpdate() {
 		if (timer > 0) {

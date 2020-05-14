@@ -29,12 +29,16 @@ public class HitStopManager : MonoBehaviour {
 
 	private float LerpValue => lerpTimer / lerpTime;
 
+	public bool TimeStopped { get; private set; }
+
 	#endregion ^ Properties
 
 
 	#region Unity Methods
 
 	private void Update() {
+
+		if (TimeStopped) return;
 
 		// Lerp time scale
 		if (lerpTimer > 0) {
@@ -54,7 +58,7 @@ public class HitStopManager : MonoBehaviour {
 		//quad = Mathf.Clamp01(quad - Time.unscaledDeltaTime);
 
 		Time.timeScale = 1 - quad;
-		timeScale = Time.timeScale;
+		//timeScale = Time.timeScale;
 		//if (quad <= 0)
 		//	SetTargetScale(NORMAL_TIME_SCALE);
 	}
@@ -70,6 +74,11 @@ public class HitStopManager : MonoBehaviour {
 
 	public void BigHit() {
 		SetQuad(BIG_INCREASE);
+	}
+
+	public void StopTime() {
+		TimeStopped = true;
+		Time.timeScale = 0;
 	}
 
 	#endregion ^ Public Methods

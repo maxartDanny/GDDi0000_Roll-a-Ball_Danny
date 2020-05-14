@@ -54,3 +54,11 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: 61497eebfe0b9a7439d4bffc58e46328, type: 3}
     PitchRange: {x: 0.95, y: 1.05}
+  - Name: ToBeContinuedIn
+    clips:
+    - {fileID: 8300000, guid: 54362ac832cb93a41b5901c86b6a95bb, type: 3}
+    PitchRange: {x: 1, y: 1}
+  - Name: ToBeContinued
+    clips:
+    - {fileID: 8300000, guid: 0fefad532f6ff8143833793f14098781, type: 3}
+    PitchRange: {x: 1, y: 1}
