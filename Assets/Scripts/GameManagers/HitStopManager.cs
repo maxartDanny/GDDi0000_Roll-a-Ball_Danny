@@ -11,7 +11,7 @@ public class HitStopManager : MonoBehaviour {
 	private const float NORMAL_TIME_SCALE = 1f;
 
 	private const float SMALL_INCREASE = 0.15f;
-	private const float BIG_INCREASE = 0.4f;
+	private const float BIG_INCREASE = 0.7f;
 
 	private float linear = 0;
 	private float quad = 0;

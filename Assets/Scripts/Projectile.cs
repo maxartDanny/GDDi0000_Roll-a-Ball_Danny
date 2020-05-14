@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour {
 
 	#region Variables
 
+	private const float HEIGHT = 0.5f;
+
 	[SerializeField] private LayerMask mask;
 
 	[SerializeField] private AnimationCurve arch;
@@ -96,6 +98,7 @@ public class Projectile : MonoBehaviour {
 		Speed = speed;
 
 		targetPos = target.position;
+		targetPos.y = HEIGHT;
 		archDir = Vector3.Cross(targetPos - initialPos, Vector3.up).normalized;
 		distToTarget = (targetPos - initialPos).magnitude;
 
@@ -112,9 +115,12 @@ public class Projectile : MonoBehaviour {
 		DamageType = damageType;
 
 		initialPos = myTransform.position;
+		initialPos.y = HEIGHT;
 		targetPos = initialPos + direction;
+		targetPos.y = HEIGHT;
 
 		time = 0;
+		Speed *= 1.25f;
 		timeToDestination = direction.magnitude / Speed;
 		IsArching = false;
 
