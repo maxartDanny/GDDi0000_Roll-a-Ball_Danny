@@ -59,12 +59,13 @@ public class BossEnemyController : EnemyController {
 	#region Public Methods
 
 	public void OnAttackAreaTrigger() {
-		audioSource.volume = 0.8f;
+		audioSource.volume = 0.5f;
 		AudioManager.Instance.PlayAudio(audioSource, Audio.Game.TO_BE_CONTINUED);
 		sword.DoSlash(myTransform.forward);
 	}
 
 	public void OnSwordTrigger() {
+		GameManager.Instance.BossComplete();
 		GameManager.Instance.TBC.EnablePanel(true);
 		GameManager.Instance.HitStop.StopTime();
 	}

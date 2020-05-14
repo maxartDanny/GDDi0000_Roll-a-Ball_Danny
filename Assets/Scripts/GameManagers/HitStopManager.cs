@@ -81,6 +81,11 @@ public class HitStopManager : MonoBehaviour {
 		Time.timeScale = 0;
 	}
 
+	public void ResetTimeScale() {
+		Time.timeScale = NORMAL_TIME_SCALE;
+		TimeStopped = false;
+	}
+
 	#endregion ^ Public Methods
 
 

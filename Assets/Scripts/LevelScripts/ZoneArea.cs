@@ -106,7 +106,8 @@ public class ZoneArea : MonoBehaviour {
 	#region Helper Methods
 
 	private void ActivateArea() {
-		EnableWalls(true);
+		if (!GameManager.Instance.GameCompleted)
+			EnableWalls(true);
 
 		ZoneActive = true;
 		Clear = false;
