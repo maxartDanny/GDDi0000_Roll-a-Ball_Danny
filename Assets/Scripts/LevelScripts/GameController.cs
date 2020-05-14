@@ -13,6 +13,11 @@ public class GameController : MonoBehaviour {
 			ReloadScene();
 		} else if (Input.GetKeyDown(KeyCode.Alpha0)) {
 			ClearPlayerPrefs();
+		} else if (Input.GetKeyDown(KeyCode.Escape)) {
+			Application.Quit();
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#endif
 		}
 
 	}
